@@ -6,7 +6,11 @@ import sys
 
 def main():
     """Run administrative tasks."""
+<<<<<<< HEAD
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'backend_project.settings')
+=======
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'mysite.settings')
+>>>>>>> a73e329 (authentication sytem)
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:
