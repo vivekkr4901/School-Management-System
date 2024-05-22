@@ -1,17 +1,17 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Home</title>
-</head>
-<body>
-    <h2>Welcome to Our Site!</h2>
-    {% if user.is_authenticated %}
-        <p>Hello, {{ user.username }}! You are logged in as {{ user.role }}.</p>
-        <button onclick="window.location.href='{% url 'logout' %}'">Logout</button>
-    {% else %}
-        <p>You are not logged in.</p>
-        <button onclick="window.location.href='{% url 'login' %}'">Login</button>
-        <button onclick="window.location.href='{% url 'register' %}'">Register</button>
-    {% endif %}
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<h2>Welcome to Our Site!</h2>
+{% if user.is_authenticated %}
+    <p>Hello, {{ user.username }}! You are logged in as {{ user.role }}.</p>
+    <button onclick="window.location.href='{% url 'logout' %}'">Logout</button>
+{% else %}
+    <p>You are not logged in.</p>
+    <div class="nav-buttons">
+        <button class="btn-link" onclick="window.location.href='{% url 'login' %}'">Login</button>
+        <button class="btn-link" onclick="window.location.href='{% url 'register' %}'">Register</button>
+    </div>
+{% endif %}
+{% endblock %}

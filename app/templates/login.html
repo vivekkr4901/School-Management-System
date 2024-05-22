@@ -1,23 +1,23 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Login</title>
-</head>
-<body>
-    <h2>Login</h2>
-    <form method="post">
-        {% csrf_token %}
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required><br>
+{% extends 'base.html' %}
 
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required><br>
+{% block title %}Login{% endblock %}
 
-        <button type="submit">Login</button>
-        {% if error %}
-            <p>{{ error }}</p>
-        {% endif %}
-    </form>
-</body>
-</html>
+{% block content %}
+<h2>Login</h2>
+<form method="post">
+    {% csrf_token %}
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username" required>
 
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" required>
+
+    <button type="submit">Login</button>
+    {% if error %}
+        <p class="error">{{ error }}</p>
+    {% endif %}
+</form>
+<div class="nav-buttons">
+    <button class="btn-link" onclick="window.location.href='{% url 'register' %}'">Register</button>
+</div>
+{% endblock %}
