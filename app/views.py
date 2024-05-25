@@ -34,3 +34,25 @@ def logout_view(request):
 
 def home(request):
     return render(request, 'home.html')
+
+from django.contrib.auth.decorators import login_required
+from .models import Notice
+from .forms import NoticeForm
+
+@login_required   #decorators : property of a oops
+def notice_list(request):
+    notices = Notice.objects.all().order_by('-created_at')
+    return render(request, 'notices/notice_list.html', {'notices': notices})   #to sort the order in which the notices are given to the students
+
+@login_required
+def add_notice(request):     #to create notice for the students
+    if request.method == 'POST':
+        form = NoticeForm(request.POST)
+        if form.is_valid():
+            notice = form.save(commit=False)
+            notice.author = request.user
+            notice.save()
+            return redirect('notice_list')
+    else:
+        form = NoticeForm()
+    return render(request, 'notices/add_notice.html', {'form': form})

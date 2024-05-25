@@ -7,6 +7,50 @@
 {% if user.is_authenticated %}
     <p>Hello, {{ user.username }}! You are logged in as {{ user.role }}.</p>
     <button onclick="window.location.href='{% url 'logout' %}'">Logout</button>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            text-align: center;
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 10px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+    {% if user.role == 'TEACHER' or user.role == 'PRINCIPAL' %}
+        <div class="container">
+            <h1>WELCOME {{ user.username }} ({{ user.role }}). POST LATEST NOTICE FOR STUDENTS</h1>
+            <a href="{% url 'notice_list' %}" class="button">View Notices</a>
+            <a href="{% url 'add_notice' %}" class="button">Add Notice</a>
+        </div>
+    {% else %}
+        <div class="container">
+            <h1>WELCOME {{ user.username }}. SEE THE LATEST NOTICES</h1>
+            <a href="{% url 'notice_list' %}" class="button">View Notices</a>
+        </div>
+    {% endif %}
+
+
 {% else %}
     <p>You are not logged in.</p>
     <div class="nav-buttons">
@@ -15,3 +59,6 @@
     </div>
 {% endif %}
 {% endblock %}
+
+
+

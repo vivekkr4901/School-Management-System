@@ -1,0 +1,22 @@
+<!-- templates/notices/notice_list.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notices</title>
+</head>
+<body>
+    <h1>Notices</h1>
+    <a href="{% url 'add_notice' %}">Add Notice</a>
+    <ul>
+        {% for notice in notices %}
+            <li>
+                <h2>{{ notice.title }}</h2>
+                <p>{{ notice.message }}</p>
+                <small>Posted by {{ notice.author }} on {{ notice.created_at }}</small>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
