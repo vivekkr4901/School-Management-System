@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %}Notice List{% endblock %}
+
+{% block content %}
+<div class="notice-container">
+    <h2>Notice List</h2>
+    {% for notice in notices %}
+        <div class="notice">
+            <h3>{{ notice.title }}</h3>
+            <p>{{ notice.message }}</p>
+            <p class="author">Posted by: {{ notice.author.username }} on {{ notice.created_at }}</p>
+        </div>
+    {% endfor %}
+</div>
+
+<style>
+    .notice-container {
+        max-width: 800px;
+        margin: 50px auto;
+        padding: 20px;
+        background: #f9f9f9;
+        border-radius: 10px;
+    }
+    h2 {
+        text-align: center;
+        color: #333;
+    }
+    .notice {
+        background: #fff;
+        margin: 20px 0;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    .notice h3 {
+        margin: 0 0 10px;
+        color: #333;
+    }
+    .notice p {
+        margin: 10px 0;
+        color: #555;
+    }
+    .notice .author {
+        text-align: right;
+        font-style: italic;
+        color: #777;
+    }
+</style>
+{% endblock %}

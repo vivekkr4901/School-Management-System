@@ -3,54 +3,20 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
-<h2>Welcome to Our Site!</h2>
+<h2>WELCOME TO THE SCHOOL SITE !</h2>
 {% if user.is_authenticated %}
     <p>Hello, {{ user.username }}! You are logged in as {{ user.role }}.</p>
-    <button onclick="window.location.href='{% url 'logout' %}'">Logout</button>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-        .container {
-            text-align: center;
-        }
-        .button {
-            display: inline-block;
-            padding: 10px 20px;
-            margin: 10px;
-            font-size: 16px;
-            color: #fff;
-            background-color: #007bff;
-            border: none;
-            border-radius: 5px;
-            text-decoration: none;
-            cursor: pointer;
-        }
-        .button:hover {
-            background-color: #0056b3;
-        }
-    </style>
-    {% if user.role == 'TEACHER' or user.role == 'PRINCIPAL' %}
-        <div class="container">
-            <h1>WELCOME {{ user.username }} ({{ user.role }}). POST LATEST NOTICE FOR STUDENTS</h1>
+    <button onclick="window.location.href='{% url 'logout' %}'" class="logout-button">Logout</button>
+    <div class="container">
+        {% if user.role == 'TEACHER' or user.role == 'PRINCIPAL' %}
+            <h1>WELCOME {{ user.role }}. POST LATEST NOTICE FOR STUDENTS</h1>
             <a href="{% url 'notice_list' %}" class="button">View Notices</a>
             <a href="{% url 'add_notice' %}" class="button">Add Notice</a>
-        </div>
-    {% else %}
-        <div class="container">
+        {% else %}
             <h1>WELCOME {{ user.username }}. SEE THE LATEST NOTICES</h1>
             <a href="{% url 'notice_list' %}" class="button">View Notices</a>
-        </div>
-    {% endif %}
-
-
+        {% endif %}
+    </div>
 {% else %}
     <p>You are not logged in.</p>
     <div class="nav-buttons">
@@ -58,7 +24,96 @@
         <button class="btn-link" onclick="window.location.href='{% url 'register' %}'">Register</button>
     </div>
 {% endif %}
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #7f77e9;
+        background-image:url("image.jpg");
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+
+    h2 {
+        color: #333;
+        margin-bottom: 20px;
+    }
+    
+    .container {
+        text-align: center;
+        padding: 30px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        border-radius: 40px;
+    }
+
+    .container h1 {
+        color: #444;
+        margin-bottom: 20px;
+    }
+
+    .button {
+        display: inline-block;
+        padding: 10px 20px;
+        margin: 10px;
+        font-size: 16px;
+        color: #fff;
+        background-color: #28a745;
+        border: none;
+        border-radius: 8px;
+        text-decoration: none;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .button:hover {
+        background-color: #218838;
+    }
+
+    .logout-button {
+        padding: 10px 20px;
+        margin: 10px;
+        font-size: 16px;
+        color: #fff;
+        background-color: #dc3545;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .logout-button:hover {
+        background-color: #c82333;
+    }
+
+    .nav-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .btn-link {
+        padding: 10px 20px;
+        margin: 10px;
+        font-size: 16px;
+        color: #fff;
+        background-color: #007bff;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .btn-link:hover {
+        background-color: #0056b3;
+    }
+
+    p {
+        color: #555;
+    }
+</style>
 {% endblock %}
-
-
-

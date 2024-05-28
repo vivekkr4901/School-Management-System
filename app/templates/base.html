@@ -6,48 +6,64 @@
     <title>{% block title %}My Site{% endblock %}</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSA8ciJQHZJTIeDx0Hp_qTDiH4Kj5yE04yIlgOuhL-LbxhrNnKFd0Xnybo&s=10');
-            background-size: cover; /* Ensure the background covers the whole page */
-            background-repeat: no-repeat; /* Prevent the background from repeating */
+            font-family: 'Open Sans', sans-serif;
+            background-color: #f5f7fa;
+            background-size: cover;
+            background-attachment: fixed;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
             margin: 0;
-            padding: 0;
         }
         .container {
-            width: 100%;
-            max-width: 600px;
-            margin: 50px auto;
+            width: 90%;
+            max-width: 700px;
             background-color: #fff;
-            padding: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
         }
         h2 {
             text-align: center;
             color: #333;
+            margin-bottom: 30px;
+            font-size: 28px;
+            font-weight: bold;
         }
         form {
             display: flex;
             flex-direction: column;
+            gap: 15px;
         }
         label {
             margin-bottom: 5px;
             color: #555;
+            font-weight: bold;
         }
         input, select, button {
-            margin-bottom: 15px;
-            padding: 10px;
-            border: 1px solid #ddd;
+            padding: 12px 20px;
+            border: 1px solid #ccc;
             border-radius: 5px;
+            font-size: 16px;
+        }
+        input:focus, select:focus {
+            border-color: #28a745;
+            outline: none;
+            box-shadow: 0 0 5px rgba(0, 175, 69, 0.5);
         }
         button {
             background-color: #28a745;
             color: #fff;
             border: none;
             cursor: pointer;
+            transition: background 0.3s ease;
+            font-size: 16px;
+            padding: 10px 25px;
+            border-radius: 8px;
         }
         button:hover {
-            background-color: #218838;
+            background-color: #1e843e;
         }
         .btn-link {
             background: none;
@@ -55,6 +71,7 @@
             text-decoration: underline;
             border: none;
             cursor: pointer;
+            font-size: 16px;
         }
         .btn-link:hover {
             color: #0056b3;
@@ -63,6 +80,7 @@
             color: red;
             margin-top: -10px;
             margin-bottom: 15px;
+            font-size: 14px;
         }
         .nav-buttons {
             text-align: center;
