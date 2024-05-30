@@ -72,8 +72,11 @@ def upload_materials(request):
 
 @login_required
 def materials_list(request):
-    materials = StudyMaterial.objects.all()
+    Class= request.POST.get('Standard')
+    materials = StudyMaterial.objects.all().filter(class_assigned=Class)
     return render(request, 'materials_list.html', {'materials': materials})
+
+
 
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponse

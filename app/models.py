@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.core.validators import MinValueValidator, MaxValueValidator
 
 class User(AbstractUser):
     class Role(models.TextChoices):
@@ -74,3 +75,6 @@ class StudyMaterial(models.Model):
 
     def __str__(self):
         return self.title
+    
+
+
