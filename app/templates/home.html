@@ -25,6 +25,14 @@
     </div>
 {% endif %}
 
+
+<div class="nav-buttons">
+    <button class="btn-link" onclick="window.location.href='{% url 'materials_list' %}'">View Study Materials</button>
+    {% if user.is_authenticated and user.role == 'TEACHER' %}
+        <button class="btn-link" onclick="window.location.href='{% url 'upload_materials' %}'">Upload Study Material</button>
+    {% endif %}
+</div>
+
 <style>
     body {
         font-family: Arial, sans-serif;

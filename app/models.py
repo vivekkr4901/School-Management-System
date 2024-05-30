@@ -19,6 +19,7 @@ class User(AbstractUser):
 
 
 
+
 class Students(User):
     
     base_role=User.Role.STUDENT
@@ -55,6 +56,21 @@ class Notice(models.Model):
     message = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.title
+    
+
+
+
+
+class StudyMaterial(models.Model):
+    title = models.CharField(max_length=200)
+    description = models.TextField()
+    file = models.FileField(upload_to='study_materials/')
+    uploaded_at = models.DateTimeField(auto_now_add=True)
+    uploaded_by = models.ForeignKey(User, on_delete=models.CASCADE, limit_choices_to={'role': 'teacher'})
+    class_assigned = models.IntegerField(choices=[(i, str(i)) for i in range(1, 13)])
 
     def __str__(self):
         return self.title

@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}Materials List{% endblock %}
+
+{% block content %}
+<h2>Study Materials</h2>
+<ul>
+    {% for material in materials %}
+    <li>
+        <strong>{{ material.title }}</strong><br>
+        <a href="{% url 'download_material' material.pk %}">Download</a>
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}

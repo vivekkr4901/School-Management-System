@@ -15,3 +15,11 @@ class NoticeForm(forms.ModelForm):
     class Meta:
         model = Notice
         fields = ['title', 'message']
+
+from django import forms
+from .models import StudyMaterial
+
+class StudyMaterialForm(forms.ModelForm):
+    class Meta:
+        model = StudyMaterial
+        fields = ['title', 'description', 'file', 'class_assigned']
