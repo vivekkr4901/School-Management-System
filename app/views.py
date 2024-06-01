@@ -4,7 +4,12 @@ from django.contrib.auth.decorators import login_required
 from .forms import UserRegistrationForm, NoticeForm, StudyMaterialForm
 from .models import User, Notice, StudyMaterial
 
+
+
 def register(request):
+    if request.user.is_authenticated:
+        return redirect('home')
+    
     if request.method == 'POST':
         form = UserRegistrationForm(request.POST)
         if form.is_valid():
@@ -16,6 +21,7 @@ def register(request):
     else:
         form = UserRegistrationForm()
     return render(request, 'register.html', {'form': form})
+
 
 def login_view(request):
     if request.method == 'POST':
@@ -29,7 +35,7 @@ def login_view(request):
             return render(request, 'login.html', {'error': 'Invalid credentials'})
     return render(request, 'login.html')
 
-@login_required
+@login_required(redirect_field_name="{% url 'login' %}")
 def logout_view(request):
     logout(request)
     return redirect('home')
@@ -37,12 +43,12 @@ def logout_view(request):
 def home(request):
     return render(request, 'home.html')
 
-@login_required
+@login_required(redirect_field_name="{% url 'login' %}")
 def notice_list(request):
     notices = Notice.objects.all().order_by('-created_at')
     return render(request, 'notices/notice_list.html', {'notices': notices})
 
-@login_required
+@login_required(redirect_field_name="{% url 'login' %}")
 def add_notice(request):
     if request.method == 'POST':
         form = NoticeForm(request.POST)
@@ -55,7 +61,7 @@ def add_notice(request):
         form = NoticeForm()
     return render(request, 'notices/add_notice.html', {'form': form})
 
-@login_required
+@login_required(redirect_field_name="{% url 'login' %}")
 def upload_materials(request):
     if request.user.role != 'TEACHER':
         return redirect('home')
@@ -70,7 +76,7 @@ def upload_materials(request):
         form = StudyMaterialForm()
     return render(request, 'upload_materials.html', {'form': form})
 
-@login_required
+@login_required(redirect_field_name="{% url 'login' %}")
 def materials_list(request):
     Class= request.POST.get('Standard')
     materials = StudyMaterial.objects.all().filter(class_assigned=Class)
@@ -83,7 +89,7 @@ from django.http import HttpResponse
 from urllib.parse import quote
 
 
-@login_required
+@login_required(redirect_field_name="{% url 'login' %}")
 def download_material(request, pk):
     material = get_object_or_404(StudyMaterial, pk=pk)
     response = HttpResponse(material.file, content_type='application/octet-stream')

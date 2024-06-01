@@ -6,20 +6,23 @@
     <title>{% block title %}My Site{% endblock %}</title>
     <style>
         body {
-            font-family: 'Open Sans', sans-serif;
-            background-color: #f5f7fa;
-            background-size: cover;
-            background-attachment: fixed;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-        }
+        font-family: 'Open Sans', sans-serif;
+        background-color: #f5f7fa;
+        background-image: url('https://img.freepik.com/premium-photo/educational-school-background_832479-19693.jpg');
+        background-size: contain; /* or use 'cover' for full cover */
+        background-attachment: fixed;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        margin: 0;
+    }
+
         .container {
             width: 90%;
             max-width: 700px;
-            background-color: #fff;
+            background-color: #81e9a9;
+            background-blend-mode: lighten;
             padding: 40px;
             border-radius: 10px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);

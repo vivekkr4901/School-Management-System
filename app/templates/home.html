@@ -5,39 +5,40 @@
 {% block content %}
 <h2>WELCOME TO THE SCHOOL SITE !</h2>
 {% if user.is_authenticated %}
-    <p>Hello, {{ user.username }}! You are logged in as {{ user.role }}.</p>
+    <p>Hello, {{ user.username }}! YOU ARE LOGGED IN AS {{ user.role }}.</p>
     <button onclick="window.location.href='{% url 'logout' %}'" class="logout-button">Logout</button>
     <div class="container">
         {% if user.role == 'TEACHER' or user.role == 'PRINCIPAL' %}
             <h1>WELCOME {{ user.role }}. POST LATEST NOTICE FOR STUDENTS</h1>
-            <a href="{% url 'notice_list' %}" class="button">View Notices</a>
-            <a href="{% url 'add_notice' %}" class="button">Add Notice</a>
+            <a href="{% url 'notice_list' %}" class="button">VIEW NOTICES</a>
+            <a href="{% url 'add_notice' %}" class="button">ADD NOTICE</a>
         {% else %}
-            <h1>WELCOME {{ user.username }}. SEE THE LATEST NOTICES</h1>
-            <a href="{% url 'notice_list' %}" class="button">View Notices</a>
+            <h1>WELCOME {{ user.username }}. SEE THE LATEST NOTICE</h1>
+            <a href="{% url 'notice_list' %}" class="button">NOTICES</a>
         {% endif %}
     </div>
 {% else %}
-    <p>You are not logged in.</p>
+    <p>KINDLY LOG IN </p>
     <div class="nav-buttons">
-        <button class="btn-link" onclick="window.location.href='{% url 'login' %}'">Login</button>
-        <button class="btn-link" onclick="window.location.href='{% url 'register' %}'">Register</button>
+        <button class="btn-link" onclick="window.location.href='{% url 'login' %}'">LOGIN</button>
+        <button class="btn-link" onclick="window.location.href='{% url 'register' %}'">REGISTER</button>
     </div>
 {% endif %}
 
 
+{% if user.is_authenticated %}
 <div class="nav-buttons">
-    <button class="btn-link" onclick="window.location.href='{% url 'materials_list' %}'">View Study Materials</button>
+    <button class="btn-link" onclick="window.location.href='{% url 'materials_list' %}'">STUDY MATERIAL</button>
     {% if user.is_authenticated and user.role == 'TEACHER' %}
-        <button class="btn-link" onclick="window.location.href='{% url 'upload_materials' %}'">Upload Study Material</button>
+        <button class="btn-link" onclick="window.location.href='{% url 'upload_materials' %}'">UPLOAD MATERIAL</button>
     {% endif %}
 </div>
+{% endif %}
 
 <style>
     body {
         font-family: Arial, sans-serif;
         background-color: #7f77e9;
-        background-image:url("image.jpg");
         margin: 0;
         padding: 0;
         display: flex;
@@ -56,7 +57,8 @@
         text-align: center;
         padding: 30px;
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        border-radius: 40px;
+        border-radius: 125px;
+        background-size: contain;
     }
 
     .container h1 {
@@ -70,7 +72,7 @@
         margin: 10px;
         font-size: 16px;
         color: #fff;
-        background-color: #28a745;
+        background-color: #e95f0f;
         border: none;
         border-radius: 8px;
         text-decoration: none;
@@ -79,7 +81,7 @@
     }
 
     .button:hover {
-        background-color: #218838;
+        background-color: #6667ad;
     }
 
     .logout-button {
@@ -109,7 +111,7 @@
         margin: 10px;
         font-size: 16px;
         color: #fff;
-        background-color: #007bff;
+        background-color: #dc3545;
         border: none;
         border-radius: 8px;
         cursor: pointer;
@@ -117,11 +119,32 @@
     }
 
     .btn-link:hover {
-        background-color: #0056b3;
+        background-color: #3687dd;
     }
 
     p {
-        color: #555;
+     font-size: 16px;
+     color: #333;
+     line-height: 1.5;
+     text-align: justify;
+     border-width: 1px;
+     text-align: center;
+     justify-content: center;
+     background-color: aqua;
+     background-size: cover;
+     
     }
+
+    h2{
+        color: #e91127;
+        font-size: xx-large;
+        font-weight: 900;
+        margin-bottom: auto;
+        margin-top: 10px;
+        margin-bottom: 20px;
+
+    }
+
+
 </style>
 {% endblock %}
