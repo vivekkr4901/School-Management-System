@@ -25,10 +25,10 @@
     </div>
 {% endif %}
 
-
 {% if user.is_authenticated %}
 <div class="nav-buttons">
     <button class="btn-link" onclick="window.location.href='{% url 'materials_list' %}'">STUDY MATERIAL</button>
+    <button class="btn-link" onclick="window.location.href='{% url 'profile' %}'">PROFILE</button>
     {% if user.is_authenticated and user.role == 'TEACHER' %}
         <button class="btn-link" onclick="window.location.href='{% url 'upload_materials' %}'">UPLOAD MATERIAL</button>
     {% endif %}
@@ -100,11 +100,18 @@
         background-color: #c82333;
     }
 
-    .nav-buttons {
-        display: flex;
-        justify-content: center;
-        gap: 10px;
+    .nav-buttons button {
+    background-color: #035c0a; 
+    color: white; 
+    padding: 10px 20px; /* Padding */
+    border: none; 
+    border-radius: 5px; /* Rounded corners */
+    font-size: 16px; 
+    cursor: pointer; 
+    transition: background-color 0.3s, transform 0.3s; /* Transition effects */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
     }
+
 
     .btn-link {
         padding: 10px 20px;
@@ -144,7 +151,5 @@
         margin-bottom: 20px;
 
     }
-
-
 </style>
 {% endblock %}

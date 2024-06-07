@@ -10,5 +10,8 @@ urlpatterns = [
     path('notices/add/',views.add_notice,name="add_notice"),
     path('upload_materials/',views.upload_materials,name="upload_materials"),
     path('materials_list/',views.materials_list,name="materials_list"),
-    path('study_materials/download_material/<int:pk>/', views.download_material, name='download_material')
+    path('materials/download/<int:pk>/', views.download_material, name='download_material'),
+    path('profile/', views.profile, name='profile'),
+
 ]
+

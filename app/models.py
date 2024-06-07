@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.core.validators import MinValueValidator, MaxValueValidator
+from django.utils import timezone
 
 class User(AbstractUser):
     class Role(models.TextChoices):
@@ -17,7 +18,6 @@ class User(AbstractUser):
         if not self.pk:  # If the user is being created
             self.role = self.base_role
         super().save(*args, **kwargs)
-
 
 
 
@@ -76,5 +76,4 @@ class StudyMaterial(models.Model):
     def __str__(self):
         return self.title
     
-
 

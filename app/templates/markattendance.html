@@ -1,0 +1,43 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<h1 class="mt-4">Mark Attendance</h1>
+<form method="post" class="mt-3">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="date">Date:</label>
+        <input type="date" id="date" name="date" value="{{ date_today }}" class="form-control" required>
+    </div>
+    <table class="table table-bordered mt-3">
+        <thead>
+            <tr>
+                <th>Subject</th>
+                <th>Student</th>
+                <th>Present</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for subject, enrollments in students_per_subject.items %}
+                {% for enrollment in enrollments %}
+                    <tr>
+                        <td>{{ subject.name }}</td>
+                        <td>{{ enrollment.student.username }}</td>
+                        <td>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="status_{{ enrollment.student.id }}_{{ subject.id }}" id="present_{{ enrollment.student.id }}_{{ subject.id }}" value="present" required>
+                                <label class="form-check-label" for="present_{{ enrollment.student.id }}_{{ subject.id }}">Present</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="status_{{ enrollment.student.id }}_{{ subject.id }}" id="absent_{{ enrollment.student.id }}_{{ subject.id }}" value="absent" required>
+                                <label class="form-check-label" for="absent_{{ enrollment.student.id }}_{{ subject.id }}">Absent</label>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+            {% endfor %}
+        </tbody>
+    </table>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+<a href="{% url 'home' %}" class="btn btn-secondary mt-3">Back to Home</a>
+{% endblock %}

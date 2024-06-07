@@ -49,6 +49,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'app.middleware.NoCacheMiddleware'
 ]
 
 ROOT_URLCONF = 'mysite.urls'
@@ -136,3 +137,9 @@ AUTH_USER_MODEL="app.User"
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
+
+
+
+SUPABASE_URL = "https://wifiqczzeewcltopiuol.supabase.co"
+SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndpZmlxY3p6ZWV3Y2x0b3BpdW9sIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTczMTIxOTAsImV4cCI6MjAzMjg4ODE5MH0.VNJxZcFzGeGIqBnMyZOczw9Ivb6xpmv8PNeXht63x1M"
+SUPABASE_BUCKET = "MATERIALS"  

@@ -1,17 +1,66 @@
-
 {% extends 'base.html' %}
 
 {% block title %}Upload Study Material{% endblock %}
 
 {% block content %}
 <h2>Upload Study Material</h2>
-<form method="post" enctype="multipart/form-data">
+<form method="post" enctype="multipart/form-data" class="upload-form">
     {% csrf_token %}
     {{ form.as_p }}
-
-       
-    <button type="submit">Upload</button>
+    <button type="submit" class="btn-submit">Upload</button>
 </form>
 {% endblock %}
 
-
+{% block extra_css %}
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+    }
+    .upload-form {
+        max-width: 500px;
+        margin: 50px auto;
+        padding: 20px;
+        background-color: #ffffff;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    .upload-form h2 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #333;
+    }
+    .upload-form label {
+        font-weight: bold;
+        display: block;
+        margin-bottom: 5px;
+        color: #555;
+    }
+    .upload-form input, 
+    .upload-form select, 
+    .upload-form textarea {
+        width: calc(100% - 20px);
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+    }
+    .btn-submit {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+    .btn-submit:hover {
+        background-color: #0056b3;
+    }
+</style>
+{% endblock %}

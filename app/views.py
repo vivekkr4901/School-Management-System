@@ -3,8 +3,16 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
 from .forms import UserRegistrationForm, NoticeForm, StudyMaterialForm
 from .models import User, Notice, StudyMaterial
+from django.utils import timezone
+from datetime import timedelta
+from .models import *
+from .forms import *
 
 
+
+from django.shortcuts import get_object_or_404
+from django.http import HttpResponse
+from urllib.parse import quote
 
 def register(request):
     if request.user.is_authenticated:
@@ -24,6 +32,8 @@ def register(request):
 
 
 def login_view(request):
+    if request.user.is_authenticated:
+        return redirect('home')
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
@@ -44,8 +54,13 @@ def home(request):
     return render(request, 'home.html')
 
 @login_required(redirect_field_name="{% url 'login' %}")
+
+
 def notice_list(request):
-    notices = Notice.objects.all().order_by('-created_at')
+    now = timezone.now()
+    seven_days_ago = now - timedelta(days=7)
+    notices = Notice.objects.filter(created_at__gte=seven_days_ago).order_by('-created_at')
+
     return render(request, 'notices/notice_list.html', {'notices': notices})
 
 @login_required(redirect_field_name="{% url 'login' %}")
@@ -84,14 +99,21 @@ def materials_list(request):
 
 
 
-from django.shortcuts import get_object_or_404
-from django.http import HttpResponse
-from urllib.parse import quote
-
-
 @login_required(redirect_field_name="{% url 'login' %}")
 def download_material(request, pk):
     material = get_object_or_404(StudyMaterial, pk=pk)
     response = HttpResponse(material.file, content_type='application/octet-stream')
     response['Content-Disposition'] = f'attachment; filename="{quote(material.file.name)}"'
     return response
+
+
+from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
+
+@login_required(redirect_field_name="{% url 'login' %}")
+def profile(request):
+    return render(request, 'profile.html')
+
+
+
+
