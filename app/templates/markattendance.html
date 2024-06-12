@@ -1,43 +1,115 @@
-{% extends "base_generic.html" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MARK ATTENDANCE</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #2980b9, #2c3e50);
+        }
 
-{% block content %}
-<h1 class="mt-4">Mark Attendance</h1>
-<form method="post" class="mt-3">
-    {% csrf_token %}
-    <div class="form-group">
-        <label for="date">Date:</label>
-        <input type="date" id="date" name="date" value="{{ date_today }}" class="form-control" required>
-    </div>
-    <table class="table table-bordered mt-3">
-        <thead>
-            <tr>
-                <th>Subject</th>
-                <th>Student</th>
-                <th>Present</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for subject, enrollments in students_per_subject.items %}
-                {% for enrollment in enrollments %}
-                    <tr>
-                        <td>{{ subject.name }}</td>
-                        <td>{{ enrollment.student.username }}</td>
-                        <td>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="status_{{ enrollment.student.id }}_{{ subject.id }}" id="present_{{ enrollment.student.id }}_{{ subject.id }}" value="present" required>
-                                <label class="form-check-label" for="present_{{ enrollment.student.id }}_{{ subject.id }}">Present</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="status_{{ enrollment.student.id }}_{{ subject.id }}" id="absent_{{ enrollment.student.id }}_{{ subject.id }}" value="absent" required>
-                                <label class="form-check-label" for="absent_{{ enrollment.student.id }}_{{ subject.id }}">Absent</label>
-                            </div>
-                        </td>
-                    </tr>
-                {% endfor %}
-            {% endfor %}
-        </tbody>
-    </table>
-    <button type="submit" class="btn btn-primary">Submit</button>
-</form>
-<a href="{% url 'home' %}" class="btn btn-secondary mt-3">Back to Home</a>
-{% endblock %}
+        form {
+            width: 90%;
+            max-width: 600px;
+            padding: 50px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            transform: rotateX(0deg);
+            transform-style: preserve-3d;
+            position: relative;
+        }
+
+        form::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: -20px;
+            right: -20px;
+            bottom: -20px;
+            background: linear-gradient(45deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0));
+            border-radius: 30px;
+            z-index: -1;
+        }
+
+        form * {
+            transform: rotateX(0deg);
+            transform-style: preserve-3d;
+        }
+
+        form button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 20px 40px;
+            cursor: pointer;
+            border-radius: 10px;
+            font-size: 24px;
+            margin-top: 40px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            display: block;
+            width: 100%;
+        }
+
+        form button:hover {
+            background-color: #2980b9;
+        }
+
+        form label {
+            display: block;
+            margin-bottom: 15px;
+            color: #333;
+            font-size: 24px;
+        }
+
+        form input[type="text"],
+        form input[type="password"],
+        form select {
+            width: calc(100% - 40px);
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 15px;
+            font-size: 20px;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .form-group label {
+            flex: 1;
+        }
+
+        .form-group input[type="checkbox"] {
+            transform: scale3d(2); /* Increase the size of the checkbox */
+            margin-left: 10px;
+        }
+
+        form input[type="date"] {
+            width: calc(100% - 40px);
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            font-size: 18px;
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+<body>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>

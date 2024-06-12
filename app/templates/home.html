@@ -2,154 +2,40 @@
 
 {% block title %}Home{% endblock %}
 
+{% block header %}Welcome to the School Management Dashboard!{% endblock %}
+
 {% block content %}
-<h2>WELCOME TO THE SCHOOL SITE !</h2>
+<div class="card">
+    <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;">
+        <div style="flex: 1; min-width: 300px;">
+            <h3>Dashboard Overview</h3>
+            <p>Welcome to your School Management Dashboard. Here, you can manage notices, view study materials, and update your profile.</p>
+            <p>Our platform provides a comprehensive solution to manage all aspects of school administration, ensuring a seamless experience for teachers, students, and administrators.</p>
+            {% if user.is_authenticated %}
+                <p>Hello, {{ user.username }}! You are logged in as {{ user.role }}.</p>
+                {% if user.role == 'TEACHER' or user.role == 'PRINCIPAL' %}
+                    <a href="{% url 'notice_list' %}" class="button">View Notices</a>
+                    <a href="{% url 'add_notice' %}" class="button">Add Notice</a>
+                {% else %}
+                    <a href="{% url 'notice_list' %}" class="button">View Notices</a>
+                {% endif %}
+            {% else %}
+                <p>Please log in to access more features.</p>
+            {% endif %}
+        </div>
+        <div style="flex: 1; min-width: 300px; text-align: center; padding: 20px;">
+            <img src="https://5.imimg.com/data5/YB/SU/KP/SELLER-2735330/school-management-software-500x500.png" alt="School Management Software" style="max-width: 100%; border-radius: 8px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);">
+        </div>
+    </div>
+</div>
 {% if user.is_authenticated %}
-    <p>Hello, {{ user.username }}! YOU ARE LOGGED IN AS {{ user.role }}.</p>
-    <button onclick="window.location.href='{% url 'logout' %}'" class="logout-button">Logout</button>
-    <div class="container">
-        {% if user.role == 'TEACHER' or user.role == 'PRINCIPAL' %}
-            <h1>WELCOME {{ user.role }}. POST LATEST NOTICE FOR STUDENTS</h1>
-            <a href="{% url 'notice_list' %}" class="button">VIEW NOTICES</a>
-            <a href="{% url 'add_notice' %}" class="button">ADD NOTICE</a>
-        {% else %}
-            <h1>WELCOME {{ user.username }}. SEE THE LATEST NOTICE</h1>
-            <a href="{% url 'notice_list' %}" class="button">NOTICES</a>
+    <div class="card">
+        <h3>Additional Features</h3>
+        <a href="{% url 'materials_list' %}" class="button">Study Materials</a>
+        <a href="{% url 'profile' %}" class="button">Profile</a>
+        {% if user.role == 'TEACHER' %}
+            <a href="{% url 'upload_materials' %}" class="button">Upload Material</a>
         {% endif %}
     </div>
-{% else %}
-    <p>KINDLY LOG IN </p>
-    <div class="nav-buttons">
-        <button class="btn-link" onclick="window.location.href='{% url 'login' %}'">LOGIN</button>
-        <button class="btn-link" onclick="window.location.href='{% url 'register' %}'">REGISTER</button>
-    </div>
 {% endif %}
-
-{% if user.is_authenticated %}
-<div class="nav-buttons">
-    <button class="btn-link" onclick="window.location.href='{% url 'materials_list' %}'">STUDY MATERIAL</button>
-    <button class="btn-link" onclick="window.location.href='{% url 'profile' %}'">PROFILE</button>
-    {% if user.is_authenticated and user.role == 'TEACHER' %}
-        <button class="btn-link" onclick="window.location.href='{% url 'upload_materials' %}'">UPLOAD MATERIAL</button>
-    {% endif %}
-</div>
-{% endif %}
-
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        background-color: #7f77e9;
-        margin: 0;
-        padding: 0;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-    }
-
-    h2 {
-        color: #333;
-        margin-bottom: 20px;
-    }
-    
-    .container {
-        text-align: center;
-        padding: 30px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        border-radius: 125px;
-        background-size: contain;
-    }
-
-    .container h1 {
-        color: #444;
-        margin-bottom: 20px;
-    }
-
-    .button {
-        display: inline-block;
-        padding: 10px 20px;
-        margin: 10px;
-        font-size: 16px;
-        color: #fff;
-        background-color: #e95f0f;
-        border: none;
-        border-radius: 8px;
-        text-decoration: none;
-        cursor: pointer;
-        transition: background-color 0.3s;
-    }
-
-    .button:hover {
-        background-color: #6667ad;
-    }
-
-    .logout-button {
-        padding: 10px 20px;
-        margin: 10px;
-        font-size: 16px;
-        color: #fff;
-        background-color: #dc3545;
-        border: none;
-        border-radius: 8px;
-        cursor: pointer;
-        transition: background-color 0.3s;
-    }
-
-    .logout-button:hover {
-        background-color: #c82333;
-    }
-
-    .nav-buttons button {
-    background-color: #035c0a; 
-    color: white; 
-    padding: 10px 20px; /* Padding */
-    border: none; 
-    border-radius: 5px; /* Rounded corners */
-    font-size: 16px; 
-    cursor: pointer; 
-    transition: background-color 0.3s, transform 0.3s; /* Transition effects */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
-    }
-
-
-    .btn-link {
-        padding: 10px 20px;
-        margin: 10px;
-        font-size: 16px;
-        color: #fff;
-        background-color: #dc3545;
-        border: none;
-        border-radius: 8px;
-        cursor: pointer;
-        transition: background-color 0.3s;
-    }
-
-    .btn-link:hover {
-        background-color: #3687dd;
-    }
-
-    p {
-     font-size: 16px;
-     color: #333;
-     line-height: 1.5;
-     text-align: justify;
-     border-width: 1px;
-     text-align: center;
-     justify-content: center;
-     background-color: aqua;
-     background-size: cover;
-     
-    }
-
-    h2{
-        color: #e91127;
-        font-size: xx-large;
-        font-weight: 900;
-        margin-bottom: auto;
-        margin-top: 10px;
-        margin-bottom: 20px;
-
-    }
-</style>
 {% endblock %}

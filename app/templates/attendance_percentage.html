@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Attendance Percentage</title>
+</head>
+<body>
+    <h2>Attendance Percentage</h2>
+    <ul>
+        {% for data in attendance_data %}
+            <li>{{ data.subject }}: {{ data.attendance_percentage }}%</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

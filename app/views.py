@@ -117,3 +117,40 @@ def profile(request):
 
 
 
+
+def attendancetrack(request):
+    if request.method == 'POST':
+        form = attendanceform(request.POST)
+        if form.is_valid():
+            attendancestatus=form.save(commit=False)
+            attendancestatus.save()  # Save the form data directly
+            return redirect('attendancelist')  # Redirect to the attendancerecord URL
+    else:
+        form = attendanceform()
+    return render(request, 'markattendance.html', {'form': form})
+
+from .models import Subject, attendance
+from django.shortcuts import render
+
+def attendancerecord(request):
+    if request.method == 'POST':
+        subject_name = request.POST.get('SUBJECT')
+        
+        # Retrieve the Subject instance based on the subject_name
+        subject = Subject.objects.get(subject_name=subject_name)
+
+        # Get attendance records for the selected subject
+        attendance_records = attendance.objects.filter(subject=subject)
+
+        total_classes = attendance_records.count()
+        classes_attended = attendance_records.filter(status=True).count()
+
+        # Calculate attendance percentage
+        if total_classes > 0:
+            attendance_percentage = (classes_attended / total_classes) * 100
+        else:
+            attendance_percentage = 0
+
+        return render(request, 'attendancelist.html', {'attendance_percentage': attendance_percentage})
+
+    return render(request, 'attendancelist.html')

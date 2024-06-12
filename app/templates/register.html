@@ -1,33 +1,109 @@
-{% extends 'base.html' %}
-
-{% block title %}Register{% endblock %}
-
-{% block content %}
-<h2>Register</h2>
-<form method="post">
-    {% csrf_token %}
-    <label for="username">Username:</label>
-    <input type="text" id="username" name="username" required>
-
-    <label for="email">Email:</label>
-    <input type="email" id="email" name="email" required>
-
-    <label for="role">Role:</label>
-    <select id="role" name="role">
-        {% for choice in form.role.field.choices %}
-            <option value="{{ choice.0 }}">{{ choice.1 }}</option>
-        {% endfor %}
-    </select>
-
-    <label for="password1">Password:</label>
-    <input type="password" id="password1" name="password1" required>
-
-    <label for="password2">Confirm Password:</label>
-    <input type="password" id="password2" name="password2" required>
-
-    <button type="submit">Register</button>
-</form>
-<div class="nav-buttons">
-    <button class="btn-link" onclick="window.location.href='{% url 'login' %}'">Login</button>
-</div>
-{% endblock %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Register{% endblock %}</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #74ebd5, #ACB6E5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+        .container {
+            background: #fff;
+            padding: 30px 50px;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2), inset 0 5px 10px rgba(255, 255, 255, 0.2);
+            text-align: center;
+            max-width: 500px;
+            width: 100%;
+            transition: transform 0.3s ease;
+        }
+        .container:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3), inset 0 7px 14px rgba(255, 255, 255, 0.3);
+        }
+        h2 {
+            margin-bottom: 20px;
+            color: #333;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        table {
+            width: 100%;
+            margin-bottom: 20px;
+            border-spacing: 10px;
+        }
+        td {
+            padding: 10px 0;
+            text-align: left;
+        }
+        input[type="text"], input[type="password"], input[type="email"], select {
+            width: calc(100% - 24px); /* Adjusting width for padding */
+            padding: 12px;
+            margin: 5px 0 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: inset 1px 1px 5px rgba(0, 0, 0, 0.1);
+            transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s;
+        }
+        input[type="text"]:focus, input[type="password"]:focus, input[type="email"]:focus, select:focus {
+            border-color: #74ebd5;
+            box-shadow: inset 1px 1px 5px rgba(0, 0, 0, 0.2);
+            transform: scale(1.05);
+        }
+        button {
+            background: linear-gradient(145deg, #e2e2e2, #ffffff);
+            border: none;
+            padding: 12px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s, box-shadow 0.3s, transform 0.3s;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            font-size: 16px;
+            font-weight: bold;
+        }
+        button:hover {
+            background: linear-gradient(145deg, #d0d0d0, #f0f0f0);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+            transform: scale(1.05);
+        }
+        .nav-buttons {
+            margin-top: 20px;
+        }
+        .btn-link {
+            background: none;
+            border: none;
+            color: #007bff;
+            text-decoration: underline;
+            cursor: pointer;
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+        .btn-link:hover {
+            color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Register</h2>
+        <form method="post">
+            {% csrf_token %}
+            <table>
+                {{ form.as_table }}
+            </table>
+            <button type="submit">Register</button>
+        </form>
+        <div class="nav-buttons">
+            <button class="btn-link" onclick="window.location.href='{% url 'login' %}'">Login</button>
+        </div>
+    </div>
+</body>
+</html>

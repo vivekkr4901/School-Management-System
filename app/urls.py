@@ -12,6 +12,7 @@ urlpatterns = [
     path('materials_list/',views.materials_list,name="materials_list"),
     path('materials/download/<int:pk>/', views.download_material, name='download_material'),
     path('profile/', views.profile, name='profile'),
-
+    path('markattendance/',views.attendancetrack,name='markattendance'),
+    path('attendancelist/',views.attendancerecord,name='attendancelist')
 ]
 

@@ -4,6 +4,8 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 from django.utils import timezone
 
 class User(AbstractUser):
+    first_name=models.CharField(max_length=200)
+    last_name=models.CharField(max_length=200)
     class Role(models.TextChoices):
         ADMIN = "ADMIN", 'Admin'
         PRINCIPAL = "PRINCIPAL", 'Principal'
@@ -18,6 +20,7 @@ class User(AbstractUser):
         if not self.pk:  # If the user is being created
             self.role = self.base_role
         super().save(*args, **kwargs)
+    
 
 
 
@@ -75,5 +78,23 @@ class StudyMaterial(models.Model):
 
     def __str__(self):
         return self.title
+
+class Subject(models.Model):
+    subject_name=models.CharField(max_length=200)
+
+
+    def __str__(self):
+        return self.subject_name
+
+
+class attendance(models.Model):
+    subject=models.ForeignKey(Subject,on_delete=models.DO_NOTHING)
+    status=models.BooleanField(default=False)
+    date=models.DateField()
     
+
+
+
+
+
 

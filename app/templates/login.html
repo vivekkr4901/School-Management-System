@@ -3,21 +3,23 @@
 {% block title %}Login{% endblock %}
 
 {% block content %}
-<h2>Login</h2>
-<form method="post">
-    {% csrf_token %}
-    <label for="username">Username:</label>
-    <input type="text" id="username" name="username" required>
+<div class="form-container">
+    <h2>Login</h2>
+    <form method="post">
+        {% csrf_token %}
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required>
 
-    <label for="password">Password:</label>
-    <input type="password" id="password" name="password" required>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
 
-    <button type="submit">Login</button>
-    {% if error %}
-        <p class="error">{{ error }}</p>
-    {% endif %}
-</form>
-<div class="nav-buttons">
-    <button class="btn-link" onclick="window.location.href='{% url 'register' %}'">Register</button>
+        <button type="submit">Login</button>
+        {% if error %}
+            <p class="error">{{ error }}</p>
+        {% endif %}
+    </form>
+    <div class="nav-buttons">
+        <button class="btn-link" onclick="window.location.href='{% url 'register' %}'">Register</button>
+    </div>
 </div>
 {% endblock %}

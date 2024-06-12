@@ -35,6 +35,8 @@
             <p><strong>Username:</strong> {{ user.username }}</p>
             <p><strong>Email:</strong> {{ user.email }}</p>
             <p><strong>Role:</strong> {{ user.role }}</p>
+            <p><strong>First Name:</strong>{{ user.first_name }}</p>
+            <p><strong>Last Name:</strong>{{ user.last_name }}</p>
             <!-- Add any other profile information you want to display -->
         </div>
         <button onclick="window.location.href='{% url 'home' %}'" class="logout-button">BACK TO HOME</button>
@@ -49,32 +51,36 @@
     margin: 0 auto;
     padding: 20px;
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 10px;
     background-color: #f9f9f9;
-    text-align: center; /* Center align all content */
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 3D box shadow */
 }
 
 #profile-picture {
-    margin-bottom: 20px; /* Add some space between picture and profile info */
+    margin-bottom: 20px;
 }
 
 #profile-picture h3 {
-    margin-bottom: 10px; /* Add some space between heading and picture */
+    margin-bottom: 10px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); /* 3D text effect */
 }
 
 #profile-picture img {
-    width: 150px; /* Set the width of the profile picture */
-    height: auto; /* Maintain aspect ratio */
-    border-radius: 50%; /* Make it a circle if the image is square */
+    width: 150px;
+    height: auto;
+    border-radius: 50%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 3D image shadow */
 }
 
 .profile-info {
-    text-align: left; /* Align text to the left for better readability */
+    text-align: left;
     margin-bottom: 25px;
 }
 
 .profile-info p {
     margin: 5px 0;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); /* 3D text effect */
 }
 
 .logout-button {
@@ -84,8 +90,9 @@
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    display: block; /* Ensure the button is on its own line */
-    margin: 0 auto; /* Center the button */
+    display: block;
+    margin: 0 auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 3D button shadow */
 }
 
 .logout-button:hover {

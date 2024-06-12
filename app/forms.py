@@ -5,9 +5,11 @@ from .models import *
 
 class UserRegistrationForm(UserCreationForm):
     role = forms.ChoiceField(choices=User.Role.choices)
+    first_name=forms.CharField(max_length=200)
+    last_name=forms.CharField(max_length=200)
     class Meta:
         model = User
-        fields = ['username', 'email', 'role', 'password1', 'password2']
+        fields = ['username', 'email', 'role', 'password1', 'password2','first_name','last_name']
 
 from .models import Notice
 
@@ -24,3 +26,8 @@ class StudyMaterialForm(forms.ModelForm):
         model = StudyMaterial
         fields = ['title', 'description', 'file', 'class_assigned']
 
+
+class attendanceform(forms.ModelForm):
+    class Meta:
+        model=attendance
+        fields=['subject','status','date']
