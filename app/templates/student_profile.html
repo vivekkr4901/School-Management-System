@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+
+{% block title %}Profile{% endblock %}
+
+{% block content %}
+<div class="profile-container">
+    {% if user.is_authenticated %}
+        {% if user.role == 'STUDENT' %}
+        <div id="profile-picture">
+            <h3>USER INFORMATION</h3>
+            <img src="https://tse2.mm.bing.net/th/id/OIP.U5Ui5zsN2yVXgAw7-NhurAHaKc?rs=1&pid=ImgDetMain" alt="">
+        </div>
+        {% endif %}
+
+        <div class="profile-info">
+            <p><strong>Username:</strong> {{ user.username }}</p>
+            <p><strong>Email:</strong> {{ user.email }}</p>
+            <p><strong>Role:</strong> {{ user.role }}</p>
+            <p><strong>First Name:</strong>{{ user.first_name }}</p>
+            <p><strong>Last Name:</strong>{{ user.last_name }}</p>
+            <p><strong>Attendance Percentage: {{ attendance_percentage }}</strong></p>
+
+            <!-- Add any other profile information you want to display -->
+        </div>
+        <button onclick="window.location.href='{% url 'home' %}'" class="logout-button">BACK TO HOME</button>
+    {% else %}
+        <p>You are not logged in. Please <a href="{% url 'login' %}">login</a> to view your profile.</p>
+    {% endif %}
+</div>
+
+<style>
+.profile-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 3D box shadow */
+}
+
+#profile-picture {
+    margin-bottom: 20px;
+}
+
+#profile-picture h3 {
+    margin-bottom: 10px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); /* 3D text effect */
+}
+
+#profile-picture img {
+    width: 150px;
+    height: auto;
+    border-radius: 50%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 3D image shadow */
+}
+
+.profile-info {
+    text-align: left;
+    margin-bottom: 25px;
+}
+
+.profile-info p {
+    margin: 5px 0;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); /* 3D text effect */
+}
+
+.logout-button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: block;
+    margin: 0 auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 3D button shadow */
+}
+
+.logout-button:hover {
+    background-color: #0056b3;
+}
+</style>
+{% endblock %}
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+    

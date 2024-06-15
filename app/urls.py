@@ -13,6 +13,12 @@ urlpatterns = [
     path('materials/download/<int:pk>/', views.download_material, name='download_material'),
     path('profile/', views.profile, name='profile'),
     path('markattendance/',views.attendancetrack,name='markattendance'),
-    path('attendancelist/',views.attendancerecord,name='attendancelist')
+    path('attendancelist/',views.attendancerecord,name='attendancelist'),
+     path('take-attendance/', views.take_attendance, name='take-attendance'),
+    path('view-attendance/', views.view_attendance, name='view-attendance'),
+    path('student/<int:student_id>/', views.student_profile, name='student_profile'),
+    path("contact_us/",views.contact_us,name="contact_us"),
+    path("school_address/",views.school_address,name="school_address")
+
 ]
 

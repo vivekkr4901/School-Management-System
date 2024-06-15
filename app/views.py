@@ -7,6 +7,7 @@ from django.utils import timezone
 from datetime import timedelta
 from .models import *
 from .forms import *
+from django.urls import reverse
 
 
 
@@ -112,10 +113,26 @@ from django.contrib.auth.decorators import login_required
 
 @login_required(redirect_field_name="{% url 'login' %}")
 def profile(request):
-    return render(request, 'profile.html')
+    if request.user.role != User.Role.STUDENT:
+        # For non-student users, render the general profile page
+        return render(request, 'profile.html')
+    else:
+        # For students, redirect to their specific student profile page
+        try:
+            student = Students.objects.get(id=request.user.id)
+            return redirect(reverse('student_profile', args=[student.id]))  # Replace with your student profile URL name
+        except Students.DoesNotExist:
+            # Handle case where student profile does not exist
+            return render(request, 'profile.html')
 
-
-
+@login_required
+def student_profile(request, student_id):
+    student = Students.objects.get(pk=student_id)
+    attendance_percentage = student.get_attendance_percentage()
+    return render(request, 'student_profile.html', {
+        'student': student,
+        'attendance_percentage': attendance_percentage,
+    })
 
 
 def attendancetrack(request):
@@ -154,3 +171,66 @@ def attendancerecord(request):
         return render(request, 'attendancelist.html', {'attendance_percentage': attendance_percentage})
 
     return render(request, 'attendancelist.html')
+
+
+from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from .forms import ClassAttendanceBulkForm
+from .models import ClassAttendance, ClassSubject, Students
+
+@login_required
+def take_attendance(request):
+    if request.user.role != User.Role.TEACHER:
+        return redirect('home')
+
+    if request.method == "POST":
+        form = ClassAttendanceBulkForm(request.POST)
+        if form.is_valid():
+            date = form.cleaned_data['date']
+            subject = form.cleaned_data['subject']
+            attendance_data = form.cleaned_data['attendance']
+
+            for student_id in attendance_data:
+                student = Students.objects.get(id=student_id)
+                ClassAttendance.objects.update_or_create(
+                    student=student, 
+                    subject=subject, 
+                    date=date, 
+                    defaults={'present': True}
+                )
+
+            messages.success(request, "Attendance successfully taken")
+            return redirect('take-attendance')
+    else:
+        form = ClassAttendanceBulkForm()
+
+    return render(request, 'attendance/take_attendance.html', {'form': form})
+
+@login_required
+def view_attendance(request):
+    if request.user.role == User.Role.STUDENT:
+        attendance_records = ClassAttendance.objects.filter(student=request.user)
+        attendance_percentage = request.user.get_attendance_percentage()
+    elif request.user.role == User.Role.TEACHER:
+        attendance_records = ClassAttendance.objects.filter(subject__teacher=request.user)
+        attendance_percentage = None
+    else:
+        attendance_records = None
+        attendance_percentage = None
+
+    return render(request, 'attendance/view_attendance.html', {
+        'attendance_records': attendance_records,
+        'attendance_percentage': attendance_percentage,
+    })
+
+
+
+
+def contact_us(request):
+    return render(request,"contact_us.html")
+
+
+
+def school_address(request):
+    return render(request,"school_address.html")

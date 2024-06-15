@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Attendance</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: url('https://th.bing.com/th/id/OIP.TfWSIhxyq1eeKnpo70UodwAAAA?rs=1&pid=ImgDetMain') no-repeat center center fixed;
+            background-size: cover;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            width: 80%;
+            max-width: 1000px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            text-align: center;
+        }
+        h2 {
+            color: #4CAF50;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transform: perspective(800px) rotateX(5deg);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+            background: rgba(255, 255, 255, 0.9);
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+        }
+        tr:nth-child(even) {
+            background-color: rgba(240, 240, 240, 0.9);
+        }
+        tr:hover {
+            background-color: rgba(230, 230, 230, 0.9);
+        }
+        .no-records {
+            color: #999;
+        }
+        .attendance-percentage {
+            margin-top: 20px;
+            font-size: 1.2em;
+            color: #4CAF50;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>View Attendance</h2>
+        {% if attendance_records %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Student</th>
+                        <th>Subject</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for record in attendance_records %}
+                        <tr>
+                            <td>{{ record.student.username }}</td>
+                            <td>{{ record.subject.name }}</td>
+                            <td>{{ record.date }}</td>
+                            <td>{{ record.present|yesno:"Present,Absent" }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% if attendance_percentage is not None %}
+                <p class="attendance-percentage">Your attendance percentage: {{ attendance_percentage|floatformat:2 }}%</p>
+            {% endif %}
+        {% else %}
+            <p class="no-records">No attendance records found.</p>
+        {% endif %}
+    </div>
+</body>
+</html>

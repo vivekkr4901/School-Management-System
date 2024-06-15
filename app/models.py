@@ -23,16 +23,27 @@ class User(AbstractUser):
     
 
 
+class StudentManager(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset().filter(role=User.Role.STUDENT)
 
 class Students(User):
-    
-    base_role=User.Role.STUDENT
+    base_role = User.Role.STUDENT
+
+    objects = StudentManager()
 
     class Meta:
-        proxy=True
-    
-    def Welcome(self):
+        proxy = True
+
+    def welcome(self):
         return "only for students"
+    
+
+    def get_attendance_percentage(self):
+        total_classes = ClassAttendance.objects.filter(student=self).count()
+        attended_classes = ClassAttendance.objects.filter(student=self, present=True).count()
+        return (attended_classes / total_classes) * 100 if total_classes > 0 else 0
+
     
 
 class teachers(User):
@@ -91,7 +102,27 @@ class attendance(models.Model):
     subject=models.ForeignKey(Subject,on_delete=models.DO_NOTHING)
     status=models.BooleanField(default=False)
     date=models.DateField()
+
+
+class ClassSubject(models.Model):
+    name = models.CharField(max_length=200)
+    teacher = models.ForeignKey(teachers, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.name
+
+class ClassAttendance(models.Model):
+    student = models.ForeignKey(Students, on_delete=models.CASCADE)
+    subject = models.ForeignKey(ClassSubject, on_delete=models.CASCADE)
+    date = models.DateField(default=timezone.now)
+    present = models.BooleanField(default=False)
     
+    class Meta:
+        verbose_name = "Class Attendance"
+        verbose_name_plural = "Class Attendances"
+
+    def __str__(self):
+        return f"{self.student.username} - {self.subject.name} - {self.date} - {'Present' if self.present else 'Absent'}"
 
 
 

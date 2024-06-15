@@ -5,6 +5,7 @@
 {% block header %}Welcome to the School Management Dashboard!{% endblock %}
 
 {% block content %}
+
 <div class="card">
     <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;">
         <div style="flex: 1; min-width: 300px;">
@@ -16,6 +17,8 @@
                 {% if user.role == 'TEACHER' or user.role == 'PRINCIPAL' %}
                     <a href="{% url 'notice_list' %}" class="button">View Notices</a>
                     <a href="{% url 'add_notice' %}" class="button">Add Notice</a>
+                    <a href="{% url 'take-attendance' %}" class="button">Take Attendance</a>
+                    <a href="{% url 'view-attendance' %}" class="button">View Attendance</a>
                 {% else %}
                     <a href="{% url 'notice_list' %}" class="button">View Notices</a>
                 {% endif %}
@@ -38,4 +41,21 @@
         {% endif %}
     </div>
 {% endif %}
+{% endblock %}
+{% block nav %}
+
+<nav style="background-color: #333; padding: 10px;">
+    <ul style="list-style-type: none; margin: 0; padding: 0; display: flex; justify-content: space-around;">
+        <li><a href="{% url 'home' %}" style="color: white; text-decoration: none;">Home</a></li>
+        <li><a href="{% url 'notice_list' %}" style="color: white; text-decoration: none;">Notices</a></li>
+        <li><a href="{% url 'materials_list' %}" style="color: white; text-decoration: none;">Materials</a></li>
+        <li><a href="{% url 'profile' %}" style="color: white; text-decoration: none;">Profile</a></li>
+        {% if user.is_authenticated %}
+            {% if user.role == 'TEACHER' or user.role == 'PRINCIPAL' %}
+                <li><a href="{% url 'take-attendance' %}" style="color: white; text-decoration: none;">Take Attendance</a></li>
+                <li><a href="{% url 'view-attendance' %}" style="color: white; text-decoration: none;">View Attendance</a></li>
+            {% endif %}
+        {% endif %}
+    </ul>
+</nav>
 {% endblock %}
