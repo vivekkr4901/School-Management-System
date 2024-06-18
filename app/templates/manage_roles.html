@@ -1,0 +1,25 @@
+<form method="post">
+    {% csrf_token %}
+    <table>
+        <tr>
+            <th>Username</th>
+            <th>Role</th>
+            <th>Action</th>
+        </tr>
+        {% for user in users %}
+        <tr>
+            <td>{{ user.username }}</td>
+            <td>
+                <select name="role">
+                    {% for role in user.Role.choices %}
+                    <option value="{{ role.0 }}">{{ role.1 }}</option>
+                    {% endfor %}
+                </select>
+            </td>
+            <td>
+                <button type="submit" name="user_id" value="{{ user.id }}">Assign Role</button>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</form>

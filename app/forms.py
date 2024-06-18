@@ -4,12 +4,25 @@ from .models import User
 from .models import *
 
 class UserRegistrationForm(UserCreationForm):
-    role = forms.ChoiceField(choices=User.Role.choices)
     first_name=forms.CharField(max_length=200)
     last_name=forms.CharField(max_length=200)
     class Meta:
         model = User
-        fields = ['username', 'email', 'role', 'password1', 'password2','first_name','last_name']
+        fields = ['username', 'email','password1', 'password2','first_name','last_name']
+
+
+
+
+
+
+
+class CustomUserCreationForm(UserRegistrationForm):
+    class Meta:
+        model = User
+        fields = ('username', 'first_name', 'last_name', 'email', 'password1', 'password2')
+
+
+
 
 from .models import Notice
 

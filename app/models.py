@@ -2,25 +2,28 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.utils import timezone
+from django.db import models
+from django.contrib.auth.models import AbstractUser
+from django.utils.translation import gettext_lazy as _
 
 class User(AbstractUser):
-    first_name=models.CharField(max_length=200)
-    last_name=models.CharField(max_length=200)
+    first_name = models.CharField(max_length=200)
+    last_name = models.CharField(max_length=200)
+    
     class Role(models.TextChoices):
-        ADMIN = "ADMIN", 'Admin'
-        PRINCIPAL = "PRINCIPAL", 'Principal'
-        STUDENT = "STUDENT", 'Student'
-        TEACHER = "TEACHER", 'Teacher'
-
-    base_role = Role.ADMIN
-
+        ADMIN = "ADMIN", _('Admin')
+        PRINCIPAL = "PRINCIPAL", _('Principal')
+        STUDENT = "STUDENT", _('Student')
+        TEACHER = "TEACHER", _('Teacher')
+        WAITING = "WAITING", _('Waiting')
+    
+    base_role = Role.WAITING
     role = models.CharField(max_length=50, choices=Role.choices, default=base_role)
-
+    
     def save(self, *args, **kwargs):
         if not self.pk:  # If the user is being created
             self.role = self.base_role
         super().save(*args, **kwargs)
-    
 
 
 class StudentManager(models.Manager):

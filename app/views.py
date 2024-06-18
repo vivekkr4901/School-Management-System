@@ -10,26 +10,35 @@ from .forms import *
 from django.urls import reverse
 
 
-
-from django.shortcuts import get_object_or_404
-from django.http import HttpResponse
-from urllib.parse import quote
+from django.shortcuts import render, redirect
+from django.contrib.auth import login
+from .forms import CustomUserCreationForm
 
 def register(request):
     if request.user.is_authenticated:
         return redirect('home')
     
     if request.method == 'POST':
-        form = UserRegistrationForm(request.POST)
+        form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             user = form.save(commit=False)
-            user.base_role = form.cleaned_data['role']
             user.save()
             login(request, user)
-            return redirect('home')
+            return redirect('waiting_page')  # Redirect to a waiting page
     else:
-        form = UserRegistrationForm()
+        form = CustomUserCreationForm()
     return render(request, 'register.html', {'form': form})
+
+def waiting_page(request):
+    if request.user.role !='WAITING':
+        return redirect('login')
+    
+    else:
+
+        return render(request, 'waiting.html')
+
+
+
 
 
 def login_view(request):
@@ -234,3 +243,24 @@ def contact_us(request):
 
 def school_address(request):
     return render(request,"school_address.html")
+
+
+#this is used just for the admin to use website rather than admin interface for assigning roles 
+
+from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth.decorators import user_passes_test
+from .models import User
+
+@user_passes_test(lambda u: u.is_superuser)
+def manage_roles(request):
+    users = User.objects.filter(role=User.Role.WAITING)
+    if request.method == 'POST':
+        user_id = request.POST.get('user_id')
+        role = request.POST.get('role')
+        user = get_object_or_404(User, id=user_id)
+        user.role = role
+        user.save()
+        return redirect('manage_roles')
+    return render(request, 'manage_roles.html', {'users': users})
+
+
