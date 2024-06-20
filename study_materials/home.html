@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block header %}Welcome to the School Management Dashboard!{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;">
+        <div style="flex: 1; min-width: 300px;">
+            <h3>Dashboard Overview</h3>
+            <p>Welcome to your School Management Dashboard. Here, you can manage notices, view study materials, and update your profile.</p>
+            <p>Our platform provides a comprehensive solution to manage all aspects of school administration, ensuring a seamless experience for teachers, students, and administrators.</p>
+            {% if user.is_authenticated %}
+                <p>Hello, {{ user.username }}! You are logged in as {{ user.role }}.</p>
+                {% if user.role == 'TEACHER' or user.role == 'PRINCIPAL' %}
+                    <a href="{% url 'notice_list' %}" class="button">View Notices</a>
+                    <a href="{% url 'add_notice' %}" class="button">Add Notice</a>
+                {% else %}
+                    <a href="{% url 'notice_list' %}" class="button">View Notices</a>
+                {% endif %}
+            {% else %}
+                <p>Please log in to access more features.</p>
+            {% endif %}
+        </div>
+        <div style="flex: 1; min-width: 300px; text-align: center; padding: 20px;">
+            <img src="https://5.imimg.com/data5/YB/SU/KP/SELLER-2735330/school-management-software-500x500.png" alt="School Management Software" style="max-width: 100%; border-radius: 8px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);">
+        </div>
+    </div>
+</div>
+{% if user.is_authenticated %}
+    <div class="card">
+        <h3>Additional Features</h3>
+        <a href="{% url 'materials_list' %}" class="button">Study Materials</a>
+        <a href="{% url 'profile' %}" class="button">Profile</a>
+        {% if user.role == 'TEACHER' %}
+            <a href="{% url 'upload_materials' %}" class="button">Upload Material</a>
+        {% endif %}
+    </div>
+{% endif %}
+{% endblock %}

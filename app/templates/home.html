@@ -6,6 +6,75 @@
 
 {% block content %}
 
+<!-- Include Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+    body {
+        background: linear-gradient(135deg, #1a1a1d, #4e4e50);
+        color: #f0f0f0;
+        font-family: 'Poppins', sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+    h3, h4 {
+        font-family: 'Orbitron', sans-serif;
+        color: #f39c12;
+    }
+    .card {
+        background-color: #2e2e2e;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
+        padding: 20px;
+        margin-bottom: 20px;
+    }
+    .card a {
+        text-decoration: none;
+        color: #3498db;
+        font-weight: 500;
+    }
+    .action-card {
+        background-color: #3b3b3b;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
+        padding: 20px;
+        text-align: center;
+        transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .action-card:hover {
+        transform: scale(1.05);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.8);
+    }
+    .action-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+    .action-container > div {
+        flex: 1;
+        min-width: 200px;
+    }
+    .user-card {
+        background-color: #3b3b3b;
+        border-radius: 50%;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
+        width: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        transition: transform 0.2s, box-shadow 0.2s;
+        z-index: 1000;
+    }
+    .user-card:hover {
+        transform: scale(1.1);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.8);
+    }
+</style>
+
 <div class="card">
     <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;">
         <div style="flex: 1; min-width: 300px;">
@@ -14,36 +83,83 @@
             <p>Our platform provides a comprehensive solution to manage all aspects of school administration, ensuring a seamless experience for teachers, students, and administrators.</p>
             {% if user.is_authenticated %}
                 <p>Hello, {{ user.username }}! You are logged in as {{ user.role }}.</p>
-                {% if user.role == 'TEACHER' or user.role == 'PRINCIPAL' %}
-                    <a href="{% url 'notice_list' %}" class="button">View Notices</a>
-                    <a href="{% url 'add_notice' %}" class="button">Add Notice</a>
-                    <a href="{% url 'take-attendance' %}" class="button">Take Attendance</a>
-                    <a href="{% url 'view-attendance' %}" class="button">View Attendance</a>
-                {% else %}
-                    <a href="{% url 'notice_list' %}" class="button">View Notices</a>
-                {% endif %}
             {% else %}
                 <p>Please log in to access more features.</p>
             {% endif %}
         </div>
         <div style="flex: 1; min-width: 300px; text-align: center; padding: 20px;">
-            <img src="https://5.imimg.com/data5/YB/SU/KP/SELLER-2735330/school-management-software-500x500.png" alt="School Management Software" style="max-width: 100%; border-radius: 8px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);">
+            <img src="https://5.imimg.com/data5/YB/SU/KP/SELLER-2735330/school-management-software-500x500.png" alt="School Management Software" style="max-width: 100%; border-radius: 8px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);">
         </div>
     </div>
 </div>
+
 {% if user.is_authenticated %}
     <div class="card">
-        <h3>Additional Features</h3>
-        <a href="{% url 'materials_list' %}" class="button">Study Materials</a>
-        <a href="{% url 'profile' %}" class="button">Profile</a>
-        {% if user.role == 'TEACHER' %}
-            <a href="{% url 'upload_materials' %}" class="button">Upload Material</a>
-        {% endif %}
+        <h3>Actions</h3>
+        <div class="action-container">
+            <div class="action-card">
+                <a href="{% url 'notice_list' %}">
+                    <h4>View Notices</h4>
+                </a>
+            </div>
+            {% if user.role == 'TEACHER' or user.role == 'PRINCIPAL' %}
+                <div class="action-card">
+                    <a href="{% url 'add_notice' %}">
+                        <h4>Add Notice</h4>
+                    </a>
+                </div>
+                <div class="action-card">
+                    <a href="{% url 'take-attendance' %}">
+                        <h4>Take Attendance</h4>
+                    </a>
+                </div>
+                <div class="action-card">
+                    <a href="{% url 'view-attendance' %}">
+                        <h4>View Attendance</h4>
+                    </a>
+                </div>
+            {% elif user.role == 'STUDENT' %}
+                <div class="action-card">
+                    <a href="{% url 'mark_attendance' %}">
+                        <h4>Mark Attendance</h4>
+                    </a>
+                </div>
+                <div class="action-card">
+                    <a href="{% url 'attendance_list' %}">
+                        <h4>Attendance List</h4>
+                    </a>
+                </div>
+            {% endif %}
+            <div class="action-card">
+                <a href="{% url 'materials_list' %}">
+                    <h4>Study Materials</h4>
+                </a>
+            </div>
+            <div class="action-card">
+                <a href="{% url 'profile' %}">
+                    <h4>Profile</h4>
+                </a>
+            </div>
+            {% if user.role == 'TEACHER' %}
+                <div class="action-card">
+                    <a href="{% url 'upload_materials' %}">
+                        <h4>Upload Material</h4>
+                    </a>
+                </div>
+            {% endif %}
+        </div>
     </div>
 {% endif %}
-{% endblock %}
-{% block nav %}
 
+<div class="user-card">
+    <a href="{% url 'user_list' %}">
+        <img src="https://img.icons8.com/ios-filled/50/ffffff/user.png" alt="Users" style="width: 30px;">
+    </a>
+</div>
+
+{% endblock %}
+
+{% block nav %}
 <nav style="background-color: #333; padding: 10px;">
     <ul style="list-style-type: none; margin: 0; padding: 0; display: flex; justify-content: space-around;">
         <li><a href="{% url 'home' %}" style="color: white; text-decoration: none;">Home</a></li>
@@ -54,6 +170,9 @@
             {% if user.role == 'TEACHER' or user.role == 'PRINCIPAL' %}
                 <li><a href="{% url 'take-attendance' %}" style="color: white; text-decoration: none;">Take Attendance</a></li>
                 <li><a href="{% url 'view-attendance' %}" style="color: white; text-decoration: none;">View Attendance</a></li>
+            {% elif user.role == 'STUDENT' %}
+                <li><a href="{% url 'markattendance' %}" style="color: white; text-decoration: none;">Mark Attendance</a></li>
+                <li><a href="{% url 'attendancelist' %}" style="color: white; text-decoration: none;">Attendance List</a></li>
             {% endif %}
         {% endif %}
     </ul>

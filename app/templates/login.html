@@ -7,19 +7,89 @@
     <h2>Login</h2>
     <form method="post">
         {% csrf_token %}
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required>
-
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required>
-
-        <button type="submit">Login</button>
+        <div class="form-group">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required class="form-control">
+        </div>
+        <button type="submit" class="btn btn-primary">Login</button>
         {% if error %}
             <p class="error">{{ error }}</p>
         {% endif %}
     </form>
     <div class="nav-buttons">
-        <button class="btn-link" onclick="window.location.href='{% url 'register' %}'">Register</button>
+        <button class="btn btn-link" onclick="window.location.href='{% url 'register' %}'">Register</button>
     </div>
 </div>
 {% endblock %}
+
+<style>
+    .form-container {
+        max-width: 400px;
+        margin: auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        background-color: #fff;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .form-container h2 {
+        margin-bottom: 20px;
+    }
+    .form-group {
+        width: 100%;
+        margin-bottom: 15px;
+        display: flex;
+        flex-direction: column;
+    }
+    .form-group label {
+        margin-bottom: 5px;
+    }
+    .form-control {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+    .btn {
+        width: 100%;
+        padding: 10px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    .btn-primary {
+        background-color: #007bff;
+        border: none;
+        color: #fff;
+        margin-top: 10px;
+    }
+    .btn-primary:hover {
+        background-color: #0056b3;
+    }
+    .btn-link {
+        background: none;
+        border: none;
+        color: #007bff;
+        text-decoration: underline;
+        margin-top: 10px;
+    }
+    .btn-link:hover {
+        color: #0056b3;
+    }
+    .error {
+        color: red;
+        margin-top: 10px;
+        text-align: center;
+    }
+    .nav-buttons {
+        width: 100%;
+        text-align: center;
+        margin-top: 20px;
+    }
+</style>

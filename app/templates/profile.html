@@ -5,41 +5,26 @@
 {% block content %}
 <div class="profile-container">
     {% if user.is_authenticated %}
-        {% if user.role == 'STUDENT' %}
         <div id="profile-picture">
             <h3>USER INFORMATION</h3>
-            <img src="https://tse2.mm.bing.net/th/id/OIP.U5Ui5zsN2yVXgAw7-NhurAHaKc?rs=1&pid=ImgDetMain" alt="">
+            {% if user.role == 'STUDENT' %}
+            <img src="https://tse2.mm.bing.net/th/id/OIP.U5Ui5zsN2yVXgAw7-NhurAHaKc?rs=1&pid=ImgDetMain" alt="Student Picture">
+            {% elif user.role == 'TEACHER' %}
+            <img src="https://wallpapercave.com/wp/wp8168772.jpg" alt="Teacher Picture">
+            {% elif user.role == 'PRINCIPAL' %}
+            <img src="https://patch.com/img/cdn/assets/stock/3018/raw/school_Principal_office_kid_in_trouble.jpg" alt="Principal Picture">
+            {% endif %}
         </div>
-        {% endif %}
-
-
-        {% if user.role == 'TEACHER' %}
-        <div id="profile-picture">
-            <h3>USER INFORMATION</h3>
-            <img src="https://wallpapercave.com/wp/wp8168772.jpg" alt="">
-        </div>
-        {% endif %}
-
-
-
-        {% if user.role == 'PRINCIPAL' %}
-        <div id="profile-picture">
-            <h3>USER INFORMATION</h3>
-            <img src="https://patch.com/img/cdn/assets/stock/3018/raw/school_Principal_office_kid_in_trouble.jpg" alt="">
-        </div>
-        {% endif %}
-
-
 
         <div class="profile-info">
             <p><strong>Username:</strong> {{ user.username }}</p>
             <p><strong>Email:</strong> {{ user.email }}</p>
             <p><strong>Role:</strong> {{ user.role }}</p>
-            <p><strong>First Name:</strong>{{ user.first_name }}</p>
-            <p><strong>Last Name:</strong>{{ user.last_name }}</p>
+            <p><strong>First Name:</strong> {{ user.first_name }}</p>
+            <p><strong>Last Name:</strong> {{ user.last_name }}</p>
             <!-- Add any other profile information you want to display -->
         </div>
-        <button onclick="window.location.href='{% url 'home' %}'" class="logout-button">BACK TO HOME</button>
+        <button onclick="window.location.href='{% url 'home' %}'" class="back-button">BACK TO HOME</button>
     {% else %}
         <p>You are not logged in. Please <a href="{% url 'login' %}">login</a> to view your profile.</p>
     {% endif %}
@@ -47,14 +32,14 @@
 
 <style>
 .profile-container {
-    max-width: 600px;
-    margin: 0 auto;
+    max-width: 500px;
+    margin: 40px auto;
     padding: 20px;
     border: 1px solid #ccc;
     border-radius: 10px;
-    background-color: #f9f9f9;
+    background-color: #fff;
     text-align: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 3D box shadow */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 #profile-picture {
@@ -63,14 +48,16 @@
 
 #profile-picture h3 {
     margin-bottom: 10px;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); /* 3D text effect */
+    font-size: 1.5em;
+    color: #333;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 #profile-picture img {
     width: 150px;
-    height: auto;
+    height: 150px;
     border-radius: 50%;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 3D image shadow */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .profile-info {
@@ -79,24 +66,34 @@
 }
 
 .profile-info p {
-    margin: 5px 0;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); /* 3D text effect */
+    margin: 10px 0;
+    font-size: 1.1em;
+    color: #444;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
 }
 
-.logout-button {
+.back-button {
     padding: 10px 20px;
     background-color: #007bff;
     color: #fff;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    display: block;
-    margin: 0 auto;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 3D button shadow */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-size: 1em;
 }
 
-.logout-button:hover {
+.back-button:hover {
     background-color: #0056b3;
+}
+
+a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
 }
 </style>
 {% endblock %}

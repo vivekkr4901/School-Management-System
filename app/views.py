@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect,HttpResponse
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
 from .forms import UserRegistrationForm, NoticeForm, StudyMaterialForm
@@ -8,6 +8,8 @@ from datetime import timedelta
 from .models import *
 from .forms import *
 from django.urls import reverse
+from urllib.parse import quote
+
 
 
 from django.shortcuts import render, redirect
@@ -263,4 +265,33 @@ def manage_roles(request):
         return redirect('manage_roles')
     return render(request, 'manage_roles.html', {'users': users})
 
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import get_object_or_404, redirect
+from django.core.exceptions import PermissionDenied
+from django.contrib import messages
+from django.http import HttpResponseForbidden
+@login_required
+def delete_user(request, user_id):
+    target_user = get_object_or_404(User, id=user_id)
 
+    # Check if the request.user can delete the target_user
+    if request.user.role == User.Role.PRINCIPAL:
+        if target_user.role not in [User.Role.TEACHER, User.Role.STUDENT]:
+            return HttpResponseForbidden("You do not have permission to delete this user.")
+    elif request.user.role == User.Role.TEACHER:
+        if target_user.role != User.Role.STUDENT:
+            return HttpResponseForbidden("You do not have permission to delete this user.")
+    else:
+        return HttpResponseForbidden("You do not have permission to delete this user.")
+
+    target_user.delete()
+    return redirect('success_page')  
+
+@login_required
+def success_page(request):
+    return render(request, 'success_page.html')
+
+@login_required
+def user_list(request):
+    users = User.objects.all()
+    return render(request, 'user_list.html', {'users': users})

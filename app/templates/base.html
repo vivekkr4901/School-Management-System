@@ -4,15 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}School Management Dashboard{% endblock %}</title>
+    <!-- Include Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: 'Open Sans', sans-serif;
-            background: linear-gradient(135deg, #f0f3f8, #a9c9ff);
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #1a1a1d, #4e4e50);
             margin: 0;
             padding: 0;
             display: flex;
             min-height: 100vh;
             background-attachment: fixed;
+            color: #e0e0e0;
         }
 
         .sidebar {
@@ -27,15 +30,16 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.3);
         }
 
         .sidebar h2 {
-            color: #fff;
+            color: #f39c12;
             font-size: 24px;
             text-align: center;
             margin-bottom: 30px;
             font-weight: bold;
+            font-family: 'Orbitron', sans-serif;
         }
 
         .sidebar a {
@@ -49,6 +53,7 @@
 
         .sidebar a:hover {
             background-color: #4a5568;
+            color: #ffffff;
         }
 
         .sidebar .logout-button {
@@ -74,9 +79,9 @@
         }
 
         .header {
-            background-color: #fff;
+            background-color: #2e3a47;
             padding: 20px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -87,8 +92,9 @@
         .header h1 {
             font-size: 24px;
             margin: 0;
-            color: #2d3748;
+            color: #f39c12;
             font-weight: bold;
+            font-family: 'Orbitron', sans-serif;
         }
 
         .header .nav-buttons {
@@ -104,6 +110,7 @@
             border-radius: 4px;
             cursor: pointer;
             transition: background 0.3s;
+            font-family: 'Poppins', sans-serif;
         }
 
         .header .nav-buttons button:hover {
@@ -111,21 +118,23 @@
         }
 
         .card {
-            background-color: #fff;
+            background-color: #2e3a47;
             padding: 20px;
             border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
             margin-bottom: 20px;
+            color: #e0e0e0;
         }
 
         .card h3 {
             margin-top: 0;
-            color: #2d3748;
+            color: #f39c12;
             font-weight: bold;
+            font-family: 'Orbitron', sans-serif
         }
 
         .card p {
-            color: #4a5568;
+            color: #cbd5e0;
         }
 
         .button {
@@ -157,14 +166,15 @@
             font-size: 32px;
             font-weight: bold;
             margin-bottom: 20px;
-            color: #2d3748;
+            color: #f39c12;
+            font-family: 'Orbitron', sans-serif;
         }
 
         .form-container form {
-            background-color: #fff;
+            background-color: #2e3a47;
             padding: 20px;
             border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
             width: 100%;
             max-width: 400px;
         }
@@ -172,7 +182,7 @@
         .form-container label {
             font-size: 16px;
             margin-bottom: 5px;
-            color: #2d3748;
+            color: #e0e0e0;
             font-weight: bold;
         }
 
@@ -182,6 +192,8 @@
             margin-bottom: 15px;
             border: 1px solid #cbd5e0;
             border-radius: 4px;
+            background-color: #4a5568;
+            color: #e0e0e0;
         }
 
         .form-container button {
@@ -223,11 +235,10 @@
         .form-container .nav-buttons .btn-link:hover {
             background-color: #2f855a;
         }
-
-    </style>
-</head>
-<body>
-    <div class="sidebar">
+        </style>
+        </head>
+        <body>
+        <div class="sidebar">
         <h2 class="sidebar-heading">DISCOVER SCHOOL</h2>
         <a href="school_address/">SCHOOL ADDRESS</a>
         <a href="#">SCHOOL PICTURES</a>
@@ -236,12 +247,9 @@
         <a href="">ABOUT SCHOOL PRINCIPAL</a>
         <a href="">STAFF AND TEACHERS</a>
         <a href="">FEE STRUCTURE</a>
-
-    
-        
         <button class="logout-button" onclick="window.location.href='{% url 'logout' %}'">Logout</button>
-    </div>
-    <div class="content">
+        </div>
+        <div class="content">
         <div class="header">
             <h1>{% block header %}{% endblock %}</h1>
             <div class="nav-buttons">
@@ -250,6 +258,6 @@
             </div>
         </div>
         {% block content %}{% endblock %}
-    </div>
-</body>
-</html>
+        </div>
+        </body>
+        </html>

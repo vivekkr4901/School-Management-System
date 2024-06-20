@@ -20,7 +20,10 @@ urlpatterns = [
     path("contact_us/",views.contact_us,name="contact_us"),
     path("school_address/",views.school_address,name="school_address"),
     path('waiting/', views.waiting_page, name='waiting_page'),
-    path('manage_roles/', views.manage_roles, name='manage_roles')
+    path('manage_roles/', views.manage_roles, name='manage_roles'),
+     path('delete_user/<int:user_id>/', views.delete_user, name='delete_user'),
+     path('success/', views.success_page, name='success_page'),
+    path('users/', views.user_list, name='user_list'),
 
 ]
 

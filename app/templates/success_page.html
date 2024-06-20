@@ -1,0 +1,8 @@
+<!-- success_page.html -->
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Success!</h1>
+  <p>The user has been successfully deleted.</p>
+  <a href="{% url 'user_list' %}">Back to User List</a>
+{% endblock %}

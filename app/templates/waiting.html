@@ -4,11 +4,42 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Waiting for Approval</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+        .container {
+            text-align: center;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #333;
+        }
+        p {
+            color: #666;
+        }
+        .admin-info {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
-    <h1>Thank you for registering!</h1>
-    <p>Your profile is being reviewd by our admin please come after 10 minutes and try to login.In case of any dispute contact us on our email </p>
-    <br>
-    <p>SCHOOL ADMIN</p>
+    <div class="container">
+        <h1>Thank you for registering!</h1>
+        <p>Your profile is being reviewed by our admin. Please refresh the page after few minutes you will automatically be logged in your respective account. In case of any dispute, contact us via email.</p>
+        <p class="admin-info">SCHOOL ADMIN</p>
+    </div>
 </body>
 </html>

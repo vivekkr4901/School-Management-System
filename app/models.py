@@ -1,10 +1,12 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import AbstractUser,Group
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.utils import timezone
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.utils.translation import gettext_lazy as _
+from django.core.exceptions import PermissionDenied
+
 
 class User(AbstractUser):
     first_name = models.CharField(max_length=200)
@@ -24,6 +26,18 @@ class User(AbstractUser):
         if not self.pk:  # If the user is being created
             self.role = self.base_role
         super().save(*args, **kwargs)
+    
+
+    def assign_group(self):
+        if self.role == self.Role.PRINCIPAL:
+            group, _ = Group.objects.get_or_create(name='Principals')
+            self.groups.add(group)
+        elif self.role == self.Role.TEACHER:
+            group, _ = Group.objects.get_or_create(name='Teachers')
+            self.groups.add(group)
+        elif self.role == self.Role.STUDENT:
+            group, _ = Group.objects.get_or_create(name='Students')
+            self.groups.add(group)
 
 
 class StudentManager(models.Manager):
