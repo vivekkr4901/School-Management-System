@@ -1,109 +1,112 @@
-{% extends 'base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        body {
+            background-image: url(https://img.freepik.com/free-vector/wave-background-abstract-gradient-design_483537-3688.jpg);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #1e1e1e;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #ffffff;
+        }
 
-{% block title %}Login{% endblock %}
+        .login-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+        }
 
-{% block content %}
-<div class="form-container">
-    <h2>Login</h2>
-    <form method="post">
-        {% csrf_token %}
-        <div class="form-group">
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username" required class="form-control">
+        .login-box {
+            background-color: #333333;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .login-box h2 {
+            margin-bottom: 20px;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #444444;
+            color: #ffffff;
+        }
+
+        .login-button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #5cb85c;
+            color: #ffffff;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .login-button:hover {
+            background-color: #4cae4c;
+        }
+
+        .register-link {
+            margin-top: 15px;
+        }
+
+        .register-link a {
+            color: #5cb85c;
+            text-decoration: none;
+        }
+
+        .register-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-box">
+            <h2>Login</h2>
+            <form method="post">
+                {% csrf_token %}
+                <div class="input-group">
+                    <label for="username">Username</label>
+                    <input type="text" name="username" id="username" required>
+                </div>
+                <div class="input-group">
+                    <label for="password">Password</label>
+                    <input type="password" name="password" id="password" required>
+                </div>
+                <button type="submit" class="login-button">Login</button>
+                <p class="register-link">Don't have an account? <a href="{% url 'register' %}">Register</a></p>
+            </form>
         </div>
-        <div class="form-group">
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required class="form-control">
-        </div>
-        <button type="submit" class="btn btn-primary">Login</button>
-        {% if error %}
-            <p class="error">{{ error }}</p>
-        {% endif %}
-    </form>
-    <div class="nav-buttons">
-        <button class="btn btn-link" onclick="window.location.href='{% url 'register' %}'">Register</button>
     </div>
-</div>
-{% endblock %}
-
-<style>
-    .form-container {
-        max-width: 400px;
-        margin: 50px auto;
-        padding: 30px;
-        border: 1px solid #ccc;
-        border-radius: 10px;
-        background-color: #fff;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        background: linear-gradient(145deg, #ffffff, #e6e6e6);
-        box-shadow: 5px 5px 10px #bebebe, -5px -5px 10px #ffffff;
-    }
-    .form-container h2 {
-        margin-bottom: 20px;
-        color: #333;
-    }
-    .form-group {
-        width: 100%;
-        margin-bottom: 15px;
-    }
-    .form-group label {
-        margin-bottom: 5px;
-        color: #555;
-        text-align: left;
-        display: block;
-    }
-    .form-control {
-        width: 100%;
-        padding: 10px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.1);
-        margin-bottom: 10px;
-    }
-    .btn {
-        width: 100%;
-        padding: 10px;
-        border-radius: 5px;
-        cursor: pointer;
-        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
-        transition: background-color 0.3s ease, box-shadow 0.3s ease;
-    }
-    .btn-primary {
-        background-color: #007bff;
-        border: none;
-        color: #fff;
-        margin-top: 10px;
-        box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.2), -3px -3px 6px rgba(255, 255, 255, 0.5);
-    }
-    .btn-primary:hover {
-        background-color: #0056b3;
-        box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2), -5px -5px 10px rgba(255, 255, 255, 0.5);
-    }
-    .btn-link {
-        width: auto;
-        background: none;
-        border: none;
-        color: #007bff;
-        text-decoration: underline;
-        margin-top: 10px;
-        box-shadow: none;
-        transition: color 0.3s ease;
-        padding: 0;
-        text-align: center;
-    }
-    .btn-link:hover {
-        color: #0056b3;
-    }
-    .error {
-        color: red;
-        margin-top: 10px;
-        text-align: center;
-    }
-    .nav-buttons {
-        width: 100%;
-        text-align: center;
-        margin-top: 20px;
-    }
-</style>
+</body>
+</html>
