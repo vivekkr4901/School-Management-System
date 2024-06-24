@@ -146,3 +146,48 @@ class ClassAttendance(models.Model):
 
 
 
+#test taking system
+
+
+
+
+class Test(models.Model):
+    title = models.CharField(max_length=200)
+    description = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    created_by = models.ForeignKey(teachers, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.title
+
+class Question(models.Model):
+    test = models.ForeignKey(Test, on_delete=models.CASCADE, related_name='questions')
+    text = models.CharField(max_length=500)
+
+    def __str__(self):
+        return self.text
+
+class Option(models.Model):
+    question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name='options')
+    text = models.CharField(max_length=200)
+    is_correct = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.text
+
+class StudentAnswer(models.Model):
+    student = models.ForeignKey(Students, on_delete=models.CASCADE)
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    selected_option = models.ForeignKey(Option, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.student.username} - {self.question.text}"
+
+class Result(models.Model):
+    student = models.ForeignKey(Students, on_delete=models.CASCADE)
+    test = models.ForeignKey(Test, on_delete=models.CASCADE)
+    score = models.FloatField()
+    taken_at = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return f"{self.student.username} - {self.test.title} - {self.score}"

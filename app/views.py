@@ -9,7 +9,8 @@ from .models import *
 from .forms import *
 from django.urls import reverse
 from urllib.parse import quote
-
+from django.views.decorators.http import require_http_methods
+from django.contrib.auth import get_user_model
 
 
 from django.shortcuts import render, redirect
@@ -295,3 +296,102 @@ def success_page(request):
 def user_list(request):
     users = User.objects.all()
     return render(request, 'user_list.html', {'users': users})
+
+
+
+
+
+
+#for test taking system
+
+from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
+from django.core.exceptions import PermissionDenied
+from .models import Test, Question, Option
+
+@login_required
+def create_test(request):
+    if request.user.role != User.Role.TEACHER:
+        raise PermissionDenied
+
+    if request.method == 'POST':
+        title = request.POST['title']
+        description = request.POST['description']
+        test = Test.objects.create(title=title, description=description, created_by=request.user)
+        for i in range(1, 5):
+            question_text = request.POST.get(f'question_{i}')
+            if question_text:
+                question = Question.objects.create(test=test, text=question_text)
+                for j in range(1, 6):
+                    option_text = request.POST.get(f'option_{i}_{j}')
+                    if option_text:
+                        is_correct = f'correct_{i}_{j}' in request.POST
+                        Option.objects.create(question=question, text=option_text, is_correct=is_correct)
+
+        return redirect('test_list')
+
+    return render(request, 'create_test.html')
+
+User = get_user_model()
+
+@login_required
+def take_test(request, test_id):
+    if request.user.role != User.Role.STUDENT:
+        raise PermissionDenied
+
+    test = get_object_or_404(Test, id=test_id)
+
+    if request.method == 'POST':
+        total_questions = 0
+        correct_answers = 0
+
+        for question in test.questions.all():
+            selected_option_id = request.POST.get(str(question.id))
+            selected_option = get_object_or_404(Option, id=selected_option_id)
+            StudentAnswer.objects.create(student=request.user, question=question, selected_option=selected_option)
+
+            if selected_option.is_correct:
+                correct_answers += 1
+            total_questions += 1
+
+        score = (correct_answers / total_questions) * 100
+        result = Result.objects.create(student=request.user, test=test, score=score)
+
+        return redirect('result_detail', result_id=result.id)
+        
+
+    return render(request, 'take_test.html', {'test': test})
+
+
+@login_required
+def result_detail(request, result_id):
+    result = get_object_or_404(Result, id=result_id)
+    
+    # Initialize the count in the session if it doesn't exist
+    if 'count' not in request.session:
+        request.session['count'] = 0
+    
+    # Increment the count
+    request.session['count'] += 1
+    
+    # Retrieve the count from the session
+    count = request.session['count']
+    
+    return render(request, 'result_detail.html', {'result': result, 'count': count})
+
+
+@login_required
+def test_list(request):
+    if request.user.role != User.Role.TEACHER:
+        raise PermissionDenied
+
+    tests = Test.objects.filter(created_by=request.user)
+    return render(request, 'test_list.html', {'tests': tests})
+
+@login_required
+def available_tests(request):
+    if request.user.role != User.Role.STUDENT:
+        raise PermissionDenied
+
+    tests = Test.objects.all()
+    return render(request, 'available_tests.html', {'tests': tests})

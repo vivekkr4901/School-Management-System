@@ -247,7 +247,9 @@
         <a href="">ABOUT SCHOOL PRINCIPAL</a>
         <a href="">STAFF AND TEACHERS</a>
         <a href="">FEE STRUCTURE</a>
+        {% if user.is_authenticated %}
         <button class="logout-button" onclick="window.location.href='{% url 'logout' %}'">Logout</button>
+        {% endif %}
         </div>
         <div class="content">
         <div class="header">

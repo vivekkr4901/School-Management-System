@@ -16,11 +16,9 @@
             <p><strong>Username:</strong> {{ user.username }}</p>
             <p><strong>Email:</strong> {{ user.email }}</p>
             <p><strong>Role:</strong> {{ user.role }}</p>
-            <p><strong>First Name:</strong>{{ user.first_name }}</p>
-            <p><strong>Last Name:</strong>{{ user.last_name }}</p>
-            <p><strong>Attendance Percentage: {{ attendance_percentage }}</strong></p>
-
-            <!-- Add any other profile information you want to display -->
+            <p><strong>First Name:</strong> {{ user.first_name }}</p>
+            <p><strong>Last Name:</strong> {{ user.last_name }}</p>
+            <p><strong>Attendance Percentage:</strong> {{ attendance_percentage }}%</p>
         </div>
         <button onclick="window.location.href='{% url 'home' %}'" class="logout-button">BACK TO HOME</button>
     {% else %}
@@ -29,98 +27,81 @@
 </div>
 
 <style>
+body {
+    background-color: #1E1E1E;
+    color: #E0E0E0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
 .profile-container {
-    max-width: 600px;
+    max-width: 700px;
     margin: 0 auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    background-color: #f9f9f9;
+    padding: 30px;
+    border: 2px solid #444;
+    border-radius: 15px;
+    background-color: #2A2A2A;
     text-align: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 3D box shadow */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6); /* Enhanced 3D box shadow */
 }
 
 #profile-picture {
-    margin-bottom: 20px;
+    margin-bottom: 30px;
 }
 
 #profile-picture h3 {
-    margin-bottom: 10px;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); /* 3D text effect */
+    margin-bottom: 15px;
+    color: #BB86FC;
+    font-size: 1.5em;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4); /* Enhanced 3D text effect */
 }
 
 #profile-picture img {
-    width: 150px;
+    width: 200px;
     height: auto;
     border-radius: 50%;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 3D image shadow */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5); /* Enhanced 3D image shadow */
+    border: 3px solid #BB86FC; /* Add a border around the profile image */
 }
 
 .profile-info {
     text-align: left;
-    margin-bottom: 25px;
+    margin-bottom: 30px;
+    font-size: 1.2em;
 }
 
 .profile-info p {
-    margin: 5px 0;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); /* 3D text effect */
+    margin: 10px 0;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3); /* Enhanced 3D text effect */
 }
 
 .logout-button {
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: #fff;
+    padding: 12px 24px;
+    background-color: #BB86FC;
+    color: #121212;
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
     cursor: pointer;
-    display: block;
-    margin: 0 auto;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 3D button shadow */
+    font-size: 1.2em;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4); /* Enhanced 3D button shadow */
 }
 
 .logout-button:hover {
-    background-color: #0056b3;
+    background-color: #9E70E7;
+}
+
+a {
+    color: #03DAC5;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #029C8C;
 }
 </style>
 {% endblock %}
-
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-
-    

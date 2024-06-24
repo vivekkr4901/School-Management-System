@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Result</title>
+    <style>
+        /* Apply a dark theme background color and white text for contrast */
+        body {
+            background-color: #121212;
+            color: #E0E0E0;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        /* Style the container to add some padding and a subtle shadow */
+        .container {
+            background-color: #1E1E1E;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        /* Style the heading */
+        h1 {
+            color: #BB86FC;
+            margin-bottom: 20px;
+        }
+
+        /* Style the paragraphs */
+        p {
+            font-size: 1.2em;
+            margin: 10px 0;
+        }
+
+        /* Style individual pieces of text within paragraphs */
+        p span {
+            color: #03DAC5;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Test Result</h1>
+        <p>Student: <span>{{ result.student.username }}</span></p>
+        <p>Test: <span>{{ result.test.title }}</span></p>
+        <p>Score: <span>{{ result.score }}%</span></p>
+        <p>Attempt Number:<span>{{ count }}</span></p>
+    </div>
+</body>
+</html>

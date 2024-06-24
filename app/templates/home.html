@@ -120,13 +120,13 @@
                 </div>
             {% elif user.role == 'STUDENT' %}
                 <div class="action-card">
-                    <a href="{% url 'mark_attendance' %}">
-                        <h4>Mark Attendance</h4>
+                    <a href="{% url 'markattendance' %}">
+                        <h4>Track Attendance</h4>
                     </a>
                 </div>
                 <div class="action-card">
-                    <a href="{% url 'attendance_list' %}">
-                        <h4>Attendance List</h4>
+                    <a href="{% url 'attendancelist' %}">
+                        <h4>Attendance Status</h4>
                     </a>
                 </div>
             {% endif %}

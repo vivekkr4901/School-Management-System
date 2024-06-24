@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test List</title>
+    <style>
+        /* Apply a dark theme background color and white text for contrast */
+        body {
+            background-color: #1A1A1A;
+            color: #E0E0E0;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+
+        /* Style the container to add some padding and a subtle shadow */
+        .container {
+            background-color: #2A2A2A;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            width: 80%;
+            max-width: 600px;
+        }
+
+        /* Style the heading */
+        h1 {
+            color: #BB86FC;
+            margin-bottom: 20px;
+        }
+
+        /* Style the list of tests */
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            background-color: #333;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            transition: background-color 0.3s ease;
+        }
+
+        li:hover {
+            background-color: #444;
+        }
+
+        /* Style the create link */
+        a {
+            color: #03DAC5;
+            text-decoration: none;
+            font-size: 1.2em;
+            margin-top: 20px;
+            display: inline-block;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: #029C8C;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Test List</h1>
+        <ul>
+            {% for test in tests %}
+                <li>{{ test.title }}</li>
+            {% endfor %}
+        </ul>
+        <a href="{% url 'create_test' %}">Create a new test</a>
+    </div>
+</body>
+</html>

@@ -17,3 +17,9 @@ class CustomUserAdmin(UserAdmin):
     list_display = ('username', 'email', 'first_name', 'last_name', 'role')
 
 admin.site.register(User, CustomUserAdmin)
+
+admin.site.register(Test)
+admin.site.register(Question)
+admin.site.register(StudentAnswer)
+admin.site.register(Result)
+admin.site.register(Option)

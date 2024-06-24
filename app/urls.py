@@ -24,6 +24,11 @@ urlpatterns = [
      path('delete_user/<int:user_id>/', views.delete_user, name='delete_user'),
      path('success/', views.success_page, name='success_page'),
     path('users/', views.user_list, name='user_list'),
+     path('create_test/', views.create_test, name='create_test'),
+    path('take_test/<int:test_id>/', views.take_test, name='take_test'),
+    path('test_list/', views.test_list, name='test_list'),
+    path('result_detail/<int:result_id>/', views.result_detail, name='result_detail'),
+    path('available_tests/', views.available_tests, name='available_tests'),
 
 ]
 

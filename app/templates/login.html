@@ -29,55 +29,69 @@
 <style>
     .form-container {
         max-width: 400px;
-        margin: auto;
-        padding: 20px;
+        margin: 50px auto;
+        padding: 30px;
         border: 1px solid #ccc;
         border-radius: 10px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         background-color: #fff;
         display: flex;
         flex-direction: column;
         align-items: center;
+        background: linear-gradient(145deg, #ffffff, #e6e6e6);
+        box-shadow: 5px 5px 10px #bebebe, -5px -5px 10px #ffffff;
     }
     .form-container h2 {
         margin-bottom: 20px;
+        color: #333;
     }
     .form-group {
         width: 100%;
         margin-bottom: 15px;
-        display: flex;
-        flex-direction: column;
     }
     .form-group label {
         margin-bottom: 5px;
+        color: #555;
+        text-align: left;
+        display: block;
     }
     .form-control {
         width: 100%;
         padding: 10px;
         border: 1px solid #ccc;
         border-radius: 5px;
+        box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.1);
+        margin-bottom: 10px;
     }
     .btn {
         width: 100%;
         padding: 10px;
         border-radius: 5px;
         cursor: pointer;
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+        transition: background-color 0.3s ease, box-shadow 0.3s ease;
     }
     .btn-primary {
         background-color: #007bff;
         border: none;
         color: #fff;
         margin-top: 10px;
+        box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.2), -3px -3px 6px rgba(255, 255, 255, 0.5);
     }
     .btn-primary:hover {
         background-color: #0056b3;
+        box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2), -5px -5px 10px rgba(255, 255, 255, 0.5);
     }
     .btn-link {
+        width: auto;
         background: none;
         border: none;
         color: #007bff;
         text-decoration: underline;
         margin-top: 10px;
+        box-shadow: none;
+        transition: color 0.3s ease;
+        padding: 0;
+        text-align: center;
     }
     .btn-link:hover {
         color: #0056b3;
