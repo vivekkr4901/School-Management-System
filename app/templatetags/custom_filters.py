@@ -3,7 +3,6 @@ from django.contrib.auth import get_user_model
 
 User = get_user_model()
 register = template.Library()
-
 @register.filter
 def can_delete(request_user, target_user):
     if request_user.role == User.Role.PRINCIPAL:
@@ -11,3 +10,5 @@ def can_delete(request_user, target_user):
     elif request_user.role == User.Role.TEACHER:
         return target_user.role == User.Role.STUDENT
     return False
+
+

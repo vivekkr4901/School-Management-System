@@ -29,6 +29,6 @@ urlpatterns = [
     path('test_list/', views.test_list, name='test_list'),
     path('result_detail/<int:result_id>/', views.result_detail, name='result_detail'),
     path('available_tests/', views.available_tests, name='available_tests'),
-
+    path("chat/", views.chatPage, name="chat-page")
 ]
 

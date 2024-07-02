@@ -380,6 +380,7 @@ def result_detail(request, result_id):
     return render(request, 'result_detail.html', {'result': result, 'count': count})
 
 
+
 @login_required
 def test_list(request):
     if request.user.role != User.Role.TEACHER:
@@ -395,3 +396,19 @@ def available_tests(request):
 
     tests = Test.objects.all()
     return render(request, 'available_tests.html', {'tests': tests})
+
+from django.shortcuts import render
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
+
+def chatPage(request, *args, **kwargs):
+    if request.user.is_authenticated:
+        users = User.objects.exclude(username=request.user.username)
+        return render(request, 'chat/chatPage.html', {'users': users})
+    return render(request, 'chat/chatPage.html')
+
+
+
+
+
