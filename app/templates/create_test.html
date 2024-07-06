@@ -99,6 +99,29 @@
         input[type="submit"]:hover {
             background-color: #9E70E7;
         }
+
+        .add-question-btn, .remove-question-btn {
+            background-color: #03DAC6;
+            color: #121212;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s ease;
+            margin-top: 20px;
+            align-self: flex-start;
+            margin-right: 10px;
+        }
+
+        .add-question-btn:hover, .remove-question-btn:hover {
+            background-color: #02B8A1;
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: flex-start;
+        }
     </style>
 </head>
 <body>
@@ -111,23 +134,51 @@
             <label for="description">Description:</label>
             <textarea id="description" name="description" required></textarea>
 
-            {% for i in "123456"|make_list %}
-                <div class="question">
-                    <label>Question {{ i }}:</label>
-                    <input type="text" name="question_{{ i }}">
+            <div id="questions-container">
+                <!-- Questions will be added here dynamically -->
+            </div>
 
-                    <label>Options:</label>
-                    {% for j in "1234"|make_list %}
-                        <div class="option-container">
-                            <input type="text" name="option_{{ i }}_{{ j }}">
-                            <input type="checkbox" name="correct_{{ i }}_{{ j }}"> Correct
-                        </div>
-                    {% endfor %}
-                </div>
-            {% endfor %}
+            <div class="button-group">
+                <button type="button" class="add-question-btn" onclick="addQuestion()">Add Question</button>
+                <button type="button" class="remove-question-btn" onclick="removeQuestion()">Remove Last Question</button>
+            </div>
 
             <input type="submit" value="Create Test">
         </form>
     </div>
+
+    <script>
+        let questionCount = 0;
+
+        function addQuestion() {
+            questionCount++;
+            const questionContainer = document.createElement('div');
+            questionContainer.className = 'question';
+            questionContainer.id = `question_${questionCount}`;
+            questionContainer.innerHTML = `
+                <label for="question_${questionCount}">Question ${questionCount}:</label>
+                <input type="text" id="question_${questionCount}" name="question_${questionCount}" required>
+
+                <label>Options:</label>
+                ${[1, 2, 3, 4].map(j => `
+                    <div class="option-container">
+                        <input type="text" id="option_${questionCount}_${j}" name="option_${questionCount}_${j}" required>
+                        <input type="checkbox" id="correct_${questionCount}_${j}" name="correct_${questionCount}_${j}"> Correct
+                    </div>
+                `).join('')}
+            `;
+            document.getElementById('questions-container').appendChild(questionContainer);
+        }
+
+        function removeQuestion() {
+            if (questionCount > 0) {
+                document.getElementById(`question_${questionCount}`).remove();
+                questionCount--;
+            }
+        }
+
+        // Add initial question
+        document.addEventListener('DOMContentLoaded', addQuestion);
+    </script>
 </body>
 </html>

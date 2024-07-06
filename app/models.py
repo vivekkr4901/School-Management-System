@@ -191,3 +191,10 @@ class Result(models.Model):
 
     def __str__(self):
         return f"{self.student.username} - {self.test.title} - {self.score}"
+    
+class Messages(models.Model):
+    message=models.CharField(max_length=1000)
+    sender=models.ForeignKey(User,on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.sender}:-{self.message}"

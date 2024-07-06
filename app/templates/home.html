@@ -27,6 +27,13 @@
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
         padding: 20px;
         margin-bottom: 20px;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+    }
+    .card.visible {
+        opacity: 1;
+        transform: translateY(0);
     }
     .card a {
         text-decoration: none;
@@ -129,6 +136,12 @@
                         <h4>Attendance Status</h4>
                     </a>
                 </div>
+
+                <div class="action-card">
+                    <a href="{% url 'available_tests' %}">
+                        <h4>Mock Tests</h4>
+                    </a>
+                </div>
             {% endif %}
             <div class="action-card">
                 <a href="{% url 'materials_list' %}">
@@ -146,6 +159,12 @@
                         <h4>Upload Material</h4>
                     </a>
                 </div>
+
+                <div class="action-card">
+                    <a href="{% url 'create_test' %}">
+                        <h4>Practice Test</h4>
+                    </a>
+                </div>
             {% endif %}
         </div>
     </div>
@@ -156,6 +175,30 @@
         <img src="https://img.icons8.com/ios-filled/50/ffffff/user.png" alt="Users" style="width: 30px;">
     </a>
 </div>
+
+<script>
+
+    document.addEventListener('DOMContentLoaded', function () {
+        // Add 'visible' class to cards for fade-in effect
+        const cards = document.querySelectorAll('.card');
+        cards.forEach((card, index) => {
+            setTimeout(() => {
+                card.classList.add('visible');
+            }, index * 200);
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    });
+
+</script>
 
 {% endblock %}
 

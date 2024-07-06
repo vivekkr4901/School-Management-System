@@ -11,6 +11,7 @@ from django.urls import reverse
 from urllib.parse import quote
 from django.views.decorators.http import require_http_methods
 from django.contrib.auth import get_user_model
+from django.views.decorators.cache import cache_control
 
 
 from django.shortcuts import render, redirect
@@ -333,7 +334,7 @@ def create_test(request):
     return render(request, 'create_test.html')
 
 User = get_user_model()
-
+@cache_control(no_cache=True, no_store=True, must_revalidate=True)
 @login_required
 def take_test(request, test_id):
     if request.user.role != User.Role.STUDENT:
@@ -362,7 +363,7 @@ def take_test(request, test_id):
 
     return render(request, 'take_test.html', {'test': test})
 
-
+@cache_control(no_cache=True, no_store=True, must_revalidate=True)
 @login_required
 def result_detail(request, result_id):
     result = get_object_or_404(Result, id=result_id)
@@ -405,7 +406,8 @@ User = get_user_model()
 def chatPage(request, *args, **kwargs):
     if request.user.is_authenticated:
         users = User.objects.exclude(username=request.user.username)
-        return render(request, 'chat/chatPage.html', {'users': users})
+        message=Messages.objects.all()
+        return render(request, 'chat/chatPage.html', {'users': users,'message':message})
     return render(request, 'chat/chatPage.html')
 
 

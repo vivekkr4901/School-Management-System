@@ -57,3 +57,8 @@ class ClassAttendanceBulkForm(forms.Form):
         choices=[(student.id, student.get_full_name()) for student in Students.objects.all()],
         widget=forms.CheckboxSelectMultiple
     )
+
+
+
+
+

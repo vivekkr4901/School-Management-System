@@ -2,6 +2,8 @@ import json
 from channels.generic.websocket import AsyncWebsocketConsumer
 from django.contrib.auth import get_user_model
 from asgiref.sync import sync_to_async
+from channels.db import database_sync_to_async
+from .models import Messages
 
 User = get_user_model()
 
@@ -29,10 +31,13 @@ class ChatConsumer(AsyncWebsocketConsumer):
         recipient_username = text_data_json["recipient"]
 
         # Validate roles
-        recipient_user = await sync_to_async(User.objects.get)(username=recipient_username) # type: ignore
+        recipient_user = await sync_to_async(User.objects.get)(username=recipient_username)
 
         if not self._is_valid_recipient(recipient_user):
             return  # Invalid recipient, ignore message
+
+        # Save the message to the database
+        await Save_Messages(message, self.user)
 
         await self.channel_layer.group_send(
             self.roomGroupName, {
@@ -57,3 +62,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
         username = event["username"]
         recipient = event["recipient"]
         await self.send(text_data=json.dumps({"message": message, "username": username, "recipient": recipient}))
+
+@database_sync_to_async
+def Save_Messages(message, sender):
+    Messages.objects.create(message=message, sender=sender)
