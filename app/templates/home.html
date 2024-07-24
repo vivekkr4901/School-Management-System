@@ -6,8 +6,9 @@
 
 {% block content %}
 
-<!-- Include Google Fonts -->
+<!-- Include Google Fonts and Font Awesome -->
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
 <style>
     body {
@@ -77,6 +78,25 @@
         z-index: 1000;
     }
     .user-card:hover {
+        transform: scale(1.1);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.8);
+    }
+    .chat-icon {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background-color: #3b3b3b;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
+        transition: transform 0.2s, box-shadow 0.2s;
+        z-index: 1000;
+    }
+    .chat-icon:hover {
         transform: scale(1.1);
         box-shadow: 0 6px 12px rgba(0, 0, 0, 0.8);
     }
@@ -176,8 +196,13 @@
     </a>
 </div>
 
-<script>
+<div class="chat-icon">
+    <a href="{% url 'chat-page' %}">
+        <i class="fas fa-comments" style="color: white; font-size: 24px;"></i>
+    </a>
+</div>
 
+<script>
     document.addEventListener('DOMContentLoaded', function () {
         // Add 'visible' class to cards for fade-in effect
         const cards = document.querySelectorAll('.card');
@@ -197,7 +222,6 @@
             });
         });
     });
-
 </script>
 
 {% endblock %}
@@ -211,8 +235,8 @@
         <li><a href="{% url 'profile' %}" style="color: white; text-decoration: none;">Profile</a></li>
         {% if user.is_authenticated %}
             {% if user.role == 'TEACHER' or user.role == 'PRINCIPAL' %}
-                <li><a href="{% url 'take-attendance' %}" style="color: white; text-decoration: none;">Take Attendance</a></li>
-                <li><a href="{% url 'view-attendance' %}" style="color: white; text-decoration: none;">View Attendance</a></li>
+                <li><a href="{% url 'take_attendance' %}" style="color: white; text-decoration: none;">Take Attendance</a></li>
+                <li><a href="{% url 'view_attendance' %}" style="color: white; text-decoration: none;">View Attendance</a></li>
             {% elif user.role == 'STUDENT' %}
                 <li><a href="{% url 'markattendance' %}" style="color: white; text-decoration: none;">Mark Attendance</a></li>
                 <li><a href="{% url 'attendancelist' %}" style="color: white; text-decoration: none;">Attendance List</a></li>
