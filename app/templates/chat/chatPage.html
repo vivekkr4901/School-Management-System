@@ -1,147 +1,165 @@
 <!DOCTYPE html>
 <html>
-  <body>
-    <center><h1>Hello, Welcome to my chat site! {{ request.user.username }}</h1></center>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <br>
+  <head>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
     <style>
-    body {
-    background-color: #f0f0f0;
-    color: #333;
-    font-family: 'Roboto', sans-serif;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 0;
-    padding: 0;
-    height: 100vh;
-    overflow: hidden;
-}
+      body {
+        background-color: #1e1e1e;
+        color: #ccc;
+        font-family: 'Roboto', sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 0;
+        padding: 0;
+        height: 100vh;
+        overflow: hidden;
+      }
 
-.container {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    width: 100%;
-    max-width: 600px;
-    height: 100%;
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-}
+      .container {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 100%;
+        max-width: 600px;
+        height: 100%;
+        background: #2e2e2e;
+        border-radius: 10px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+        overflow: hidden;
+      }
 
-.header {
-    background-color: #007BFF;
-    color: white;
-    padding: 10px 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
+      .header {
+        background-color: #007BFF;
+        color: white;
+        padding: 15px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      }
 
-.header h1 {
-    margin: 0;
-    font-size: 1.5em;
-}
+      .header h1 {
+        margin: 0;
+        font-size: 1.5em;
+      }
 
-.header a {
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
-}
+      .header a {
+        color: white;
+        text-decoration: none;
+        font-weight: bold;
+      }
 
-.header a:hover {
-    text-decoration: underline;
-}
+      .header a:hover {
+        text-decoration: underline;
+      }
 
-.chat__item__container {
-    flex-grow: 1;
-    padding: 20px;
-    overflow-y: auto;
-}
+      .chat__item__container {
+        flex-grow: 1;
+        padding: 20px;
+        overflow-y: auto;
+      }
 
-.input__container {
-    display: flex;
-    padding: 10px;
-    background-color: #f0f0f0;
-    border-top: 1px solid #ddd;
-}
+      .input__container {
+        display: flex;
+        padding: 10px;
+        background-color: #1e1e1e;
+        border-top: 1px solid #333;
+      }
 
-input, select, button {
-    font-size: 16px;
-    padding: 10px;
-    margin: 5px;
-    border: 1px solid #ccc;
-    border-radius: 20px;
-    outline: none;
-}
+      input,
+      select,
+      button {
+        font-size: 16px;
+        padding: 10px;
+        margin: 5px;
+        border: 1px solid #333;
+        border-radius: 20px;
+        outline: none;
+        background: #3e3e3e;
+        color: #ccc;
+        box-shadow: 0 4px #000;
+      }
 
-input {
-    flex-grow: 1;
-}
+      input {
+        flex-grow: 1;
+      }
 
-button {
-    background-color: #007BFF;
-    color: white;
-    cursor: pointer;
-    border: none;
-}
+      button {
+        background-color: #007bff;
+        color: white;
+        cursor: pointer;
+        border: none;
+        transition: background-color 0.3s, transform 0.3s;
+      }
 
-button:hover {
-    background-color: #0056b3;
-}
+      button:hover {
+        background-color: #0056b3;
+        transform: translateY(-2px);
+      }
 
-.message {
-    margin: 10px 0;
-    padding: 10px;
-    background-color: #e9e9eb;
-    border-radius: 10px;
-    max-width: 75%;
-    word-wrap: break-word;
-}
+      .message {
+        margin: 10px 0;
+        padding: 10px;
+        background-color: #3a3a3a;
+        border-radius: 10px;
+        max-width: 75%;
+        word-wrap: break-word;
+        color: #e9e9eb;
+      }
 
-.message__sender {
-    font-weight: bold;
-    margin-bottom: 5px;
-}
+      .message__sender {
+        font-weight: bold;
+        margin-bottom: 5px;
+      }
 
-.message__content {
-    white-space: pre-wrap;
-}
+      .message__content {
+        white-space: pre-wrap;
+      }
 
-.message:nth-child(odd) {
-    align-self: flex-start;
-    background-color: #daf8e3;
-}
+      .message:nth-child(odd) {
+        align-self: flex-start;
+        background-color: #2a2a2a;
+      }
 
-.message:nth-child(even) {
-    align-self: flex-end;
-    background-color: #e9e9eb;
-}
+      .message:nth-child(even) {
+        align-self: flex-end;
+        background-color: #3a3a3a;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>Hello, Welcome to my chat site! {{ request.user.username }}</h1>
+        {% if request.user.is_authenticated %}
+        <a href="{% url 'logout' %}">Logout</a>
+        {% endif %}
+      </div>
 
-
-  </style>
-
-
-
-    {% if request.user.is_authenticated %}
-      <center>Logout the chat Page <a href="{% url 'logout' %}">Logout</a></center>
-    {% endif %}
-    <div class="chat__item__container" id="id_chat_item_container" style="font-size: 20px">
-      <br />
-      <input type="text" id="id_message_send_input" />
-      <select id="id_recipient_select">
-        {% for user in users %}
-          <option value="{{ user.username }}">{{ user.username }}</option>
+      <div class="chat__item__container" id="id_chat_item_container">
+        {% for messages in message %}
+        <div class="message">
+          <div class="message__sender">{{ messages.sender }}</div>
+          <div class="message__content">{{ messages.message }}</div>
+        </div>
         {% endfor %}
-      </select>
-      <button type="submit" id="id_message_send_button">Send Message</button>
-      {% for messages in message %}
-         <div>{{ messages.sender }}:-{{ messages.message }}</div>
-      {% endfor %}
-      <br /><br />
+      </div>
+
+      <div class="input__container">
+        <input type="text" id="id_message_send_input" placeholder="Type your message..." />
+        <select id="id_recipient_select">
+          {% for user in users %}
+          <option value="{{ user.username }}">{{ user.username }}</option>
+          {% endfor %}
+        </select>
+        <button type="submit" id="id_message_send_button">Send</button>
+      </div>
     </div>
+
     <script>
       const chatSocket = new WebSocket("ws://" + window.location.host + "/");
       chatSocket.onopen = function (e) {
@@ -159,16 +177,24 @@ button:hover {
       document.querySelector("#id_message_send_button").onclick = function (e) {
         var messageInput = document.querySelector("#id_message_send_input").value;
         var recipientSelect = document.querySelector("#id_recipient_select").value;
-        chatSocket.send(JSON.stringify({
-          message: messageInput,
-          username: "{{ request.user.username }}",
-          recipient: recipientSelect
-        }));
+        chatSocket.send(
+          JSON.stringify({
+            message: messageInput,
+            username: "{{ request.user.username }}",
+            recipient: recipientSelect,
+          })
+        );
       };
       chatSocket.onmessage = function (e) {
         const data = JSON.parse(e.data);
         var div = document.createElement("div");
-        div.innerHTML = data.username + " : " + data.message;
+        div.className = "message";
+        div.innerHTML =
+          "<div class='message__sender'>" +
+          data.username +
+          "</div><div class='message__content'>" +
+          data.message +
+          "</div>";
         document.querySelector("#id_message_send_input").value = "";
         document.querySelector("#id_chat_item_container").appendChild(div);
       };

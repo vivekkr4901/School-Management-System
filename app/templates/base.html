@@ -255,8 +255,11 @@
         <div class="header">
             <h1>{% block header %}{% endblock %}</h1>
             <div class="nav-buttons">
+                {% if user.is_authenticated %}
+                {% else %}
                 <button onclick="window.location.href='{% url 'login' %}'">Login</button>
                 <button onclick="window.location.href='{% url 'register' %}'">Register</button>
+                {% endif %}
             </div>
         </div>
         {% block content %}{% endblock %}
