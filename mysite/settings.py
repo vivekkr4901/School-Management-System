@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-0lqh0m$h4ix39746v-mhypba)1m)0(n(x%))2)vq^($b^%p(*r
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -84,15 +84,20 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+import environ
+
+env = environ.Env()
+environ.Env.read_env()
+
 DATABASES = {
-'default': {
-'ENGINE': 'django.db.backends.postgresql',
-'NAME':'newmysitedb',
-'USER':'postgres',
-'PASSWORD':'p123@sqd',
-'HOST':'localhost',
-'PORT':5432
-}
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': env('DATABASE_NAME'),
+        'USER': env('DATABASE_USER'),
+        'PASSWORD': env('DATABASE_PASSWORD'),
+        'HOST': env('DATABASE_HOST'),
+        'PORT': env('DATABASE_PORT'),
+    }
 }
 
 
