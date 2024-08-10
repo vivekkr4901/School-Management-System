@@ -1,0 +1,14 @@
+# Ignore Python bytecode files
+__pycache__
+*.pyc
+
+# Ignore virtual environment
+venv
+
+# Ignore local database
+*.sqlite3
+
+# Ignore other unnecessary files
+*.log
+*.bak
+*.swp
